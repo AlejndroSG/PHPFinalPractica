@@ -1,53 +1,10 @@
 <?php
-    function set_cookie(String $nom, $val){
-        setcookie($nom, $val, time()+(86400*30));
-    }
-
-    function unset_cookie(String $nom){
-        $comp = false;
-
-        if(isset($_COOKIE[$nom])){
-            setcookie($nom, "", time()-30);
-            $comp = true;
-        }
-        return $comp;
-    }
-
-    function start_session(){
-        if(session_status() === PHP_SESSION_NONE){
-            session_start();
-        }
-    }
-
-    function set_session(String $nom, $val){
-        start_session();
-        $_SESSION[$nom] = $val;
-    }
-
-    function get_session(String $nom){
-        start_session();
-        return $_SESSION[$nom];
-    }
-    
-    function unset_session(){
-        start_session();
-        session_unset();
-        session_destroy();
-    }
-
-    function is_session(String $nom){
-        start_session();
-        $isset = isset($_SESSION[$nom]);
-
-        return $isset;
-    }
-
     require_once("../../../cred.php");
 
     class db{
         private $conn;
         public function __construct(){
-            $this->conn = new mysqli("localhost", USUARIO_CON, PSW_CON, "db_escuela");
+            $this->conn = new mysqli("localhost", USUARIO_CON, PSW_CON, "proyectoamigos");
         }
 
         public function getConn() {
