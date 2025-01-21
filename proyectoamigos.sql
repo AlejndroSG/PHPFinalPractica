@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2025 a las 18:54:16
+-- Tiempo de generación: 21-01-2025 a las 20:26:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -35,6 +35,22 @@ CREATE TABLE `amigos` (
   `id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `amigos`
+--
+
+INSERT INTO `amigos` (`id_Usuario`, `nombre`, `apellidos`, `fNac`, `id`) VALUES
+(1, 'María García', 'Gómez', '1990-05-14', 1),
+(2, 'Luis Hernández', 'Martínez', '1988-11-20', 2),
+(3, 'Carmen Sánchez', 'Rodríguez', '1992-03-08', 3),
+(4, 'Diego Torres', 'López', '1991-07-12', 4),
+(5, 'Paula Vega', 'Morales', '1993-02-25', 5),
+(6, 'Javier Castillo', 'Pérez', '1989-04-16', 6),
+(7, 'Natalia Romero', 'Fernández', '1994-06-30', 7),
+(8, 'Andrés Muñoz', 'Ruiz', '1990-09-15', 8),
+(9, 'Silvia Martín', 'Ortiz', '1995-12-10', 9),
+(10, 'Francisco Navarro', 'Cruz', '1987-03-22', 10);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +65,22 @@ CREATE TABLE `juegos` (
   `lanzamiento` int(4) NOT NULL,
   `id_Usu` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `juegos`
+--
+
+INSERT INTO `juegos` (`id`, `url`, `titulo`, `plataforma`, `lanzamiento`, `id_Usu`) VALUES
+(1, 'http://juego1.com', 'Aventura Épica', 'PC', 2021, 1),
+(2, 'http://juego2.com', 'Carreras Extremas', 'Xbox', 2020, 2),
+(3, 'http://juego3.com', 'Mundo Fantástico', 'PlayStation', 2022, 3),
+(4, 'http://juego4.com', 'Estrategia Total', 'PC', 2019, 4),
+(5, 'http://juego5.com', 'Héroes de la Galaxia', 'Switch', 2023, 5),
+(6, 'http://juego6.com', 'Deportes Pro', 'Xbox', 2021, 6),
+(7, 'http://juego7.com', 'La Gran Aventura', 'PlayStation', 2020, 7),
+(8, 'http://juego8.com', 'Exploradores', 'PC', 2022, 8),
+(9, 'http://juego9.com', 'Velocidad Máxima', 'Xbox', 2018, 9),
+(10, 'http://juego10.com', 'Batalla Épica', 'Switch', 2021, 10);
 
 -- --------------------------------------------------------
 
@@ -65,6 +97,22 @@ CREATE TABLE `prestamos` (
   `devuelto` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `prestamos`
+--
+
+INSERT INTO `prestamos` (`id`, `id_Usu`, `id_Amigo`, `id_Juego`, `fecha_inicio`, `devuelto`) VALUES
+(1, 1, 2, 1, '2025-01-01', 0),
+(2, 2, 3, 2, '2025-01-05', 1),
+(3, 3, 1, 3, '2025-01-10', 0),
+(4, 4, 5, 4, '2025-01-15', 1),
+(5, 5, 6, 5, '2025-01-20', 0),
+(6, 6, 7, 6, '2025-01-25', 1),
+(7, 7, 8, 7, '2025-01-30', 0),
+(8, 8, 9, 8, '2025-02-05', 1),
+(9, 9, 10, 9, '2025-02-10', 0),
+(10, 10, 4, 10, '2025-02-15', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +125,22 @@ CREATE TABLE `usuarios` (
   `pswd` varchar(200) NOT NULL,
   `tipo` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `pswd`, `tipo`) VALUES
+(1, 'Juan Perez', '1234', 0),
+(2, 'Ana López', 'abcd', 1),
+(3, 'Carlos Ruiz', 'pass123', 0),
+(4, 'Laura Méndez', 'lm2025', 0),
+(5, 'Pedro Fernández', 'pedro2025', 1),
+(6, 'Sofía Jiménez', 'sofia123', 0),
+(7, 'Jorge Ramírez', 'jorgepass', 1),
+(8, 'Marta Díaz', 'marta2025', 0),
+(9, 'Luis Gómez', 'luisgomez', 0),
+(10, 'Elena Torres', 'elena2025', 1);
 
 --
 -- Índices para tablas volcadas
@@ -123,25 +187,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
