@@ -1,5 +1,5 @@
 <?php
-    require_once("../../../cred.php");
+    require_once("../../../../cred.php");
 
     class db{
         private $conn;
@@ -12,7 +12,7 @@
         }
         
         public function compCredenciales(String $nom, String $psw){
-            $sentencia = "SELECT count(*) FROM usuarios WHERE nomUsu = ? AND passwd = ?"; 
+            $sentencia = "SELECT count(*) FROM usuarios WHERE nombre = ? AND pswd = ?"; 
             $consulta = $this->conn->prepare($sentencia);
             $consulta->bind_param("ss", $nom, $psw);
             $consulta->bind_result($count);

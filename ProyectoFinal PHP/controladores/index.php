@@ -6,16 +6,18 @@
         $modelo->compCredenciales($_POST["nom"], $_POST["psw"]);
 
         if($modelo->compCredenciales($_POST["nom"], $_POST["psw"])){
-            $modelo->start_session();
+            session_start();
             $_SESSION["nom"] = $_POST["nom"];
             $_SESSION["psw"] = $_POST["psw"];
-            $err = "De locos";
-            require_once("../vistas/login.php");
+            require_once("../modelo/amigos.class.php");
+            $amigo = new amigos();
+            $listaAmigos = $amigo->listarAmigos($_POST["nom"]);
+            require_once("../vistas/amigos.php");
         }else{
+            $err = "<p style='color:red'>El usuario o la contraseña son incorrectos</p>";
             require_once("../vistas/login.php");
         }
     }
-
 
     if(!isset($_REQUEST["action"])){
         require_once("../vistas/login.php");
