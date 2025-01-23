@@ -1,7 +1,3 @@
-<?php
-    include ("../header&footer/head.html");
-?>  
-<body class="d-flex align-items-center py-4 bg-body-tertiary justify-content-center" id="login">
     <form action="../controladores/index.php?action=compUsu" method="post">
         <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
 
@@ -24,5 +20,3 @@
     </form>
 
     <?php if(isset($err)) echo $err; ?>
-</body>
-</html>

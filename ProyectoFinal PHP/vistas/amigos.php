@@ -1,11 +1,5 @@
-<?php
-    include ("../header&footer/head.html");
-?>
-<body>
-    <header>
-        <?php include ('../header&footer/header.html'); ?>
-    </header>
     <main>
+        <a href="index.php?action=formInsertarAmigo">Insertar Amigos</a><a>Buscar Amigos</a>
         <?php
             echo "<table border='1'>";
                 echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th></tr>";
@@ -15,8 +9,3 @@
             echo "</table>";
         ?>
     </main>
-    <?php
-        include ("../header&footer/footer.html");
-    ?>
-</body>
-</html>

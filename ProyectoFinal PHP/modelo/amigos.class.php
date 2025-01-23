@@ -23,5 +23,21 @@
             $sentencia->close();
             return $infoAmigos;
         }
+
+        public function insertAmigo($id_Usuario, $nombre, $apellido, $fnac){
+            $consulta = "INSERT INTO amigos (id_Usuario, nombre, apellido, fnac) values (?,?,?,?)";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("issd", $id_Usuario, $nombre, $apellido, $fnac)
+            $sentencia->execute();
+            $bool;
+            
+            if($sentencia->affected_rows() == 1){
+                $bool = true;
+            }else{
+                $bool = false,
+            }
+
+            return $bool;
+        }
     }
 ?>
