@@ -38,8 +38,15 @@
         require_once("../modelo/amigos.class.php");
         $amigo = new amigo();
         if($amigo->insertAmigo($_SESSION["id"],$_POST["nombre"],$_POST["apell"],$_POST["f_Nac"])){
-            
+            $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
+        }else{
+            $msg = "<p style='color:red'>Error al insertar amigo</p>";
         }
+        $listaAmigos = $amigo->listarAmigos($_SESSION["nom"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/amigos.php");
+        require_once("../header&footer/footer.html");
     }
 
     if(!isset($_REQUEST["action"])){

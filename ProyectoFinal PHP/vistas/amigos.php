@@ -7,5 +7,6 @@
                         echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td></tr>";
                     }
             echo "</table>";
+            if(isset($msg)) echo $msg;
         ?>
     </main>
