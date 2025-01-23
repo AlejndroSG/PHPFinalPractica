@@ -37,7 +37,9 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigo();
-        $amigo->insertAmigo($_SESSION["id"],$_POST["nombre"],$_POST["apell"],$_POST["f_Nac"]);
+        if($amigo->insertAmigo($_SESSION["id"],$_POST["nombre"],$_POST["apell"],$_POST["f_Nac"])){
+            
+        }
     }
 
     if(!isset($_REQUEST["action"])){
