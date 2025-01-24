@@ -1,5 +1,5 @@
 <main>
-    <form action="../controladores/index.php?action=compUsu" method="post">
+    <form action="../controladores/index.php?action=iniciarSesion" method="post">
         <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
 
         <div class="form-floating">

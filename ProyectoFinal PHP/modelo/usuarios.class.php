@@ -16,8 +16,9 @@
             $sentencia->bind_param("s", $nomUsu);
             $sentencia->bind_result($id);
             $sentencia->execute();
+            $sentencia->fetch();
             $sentencia->close();
-            return $nomUsu;
+            return $id;
         }
     }
 ?>
