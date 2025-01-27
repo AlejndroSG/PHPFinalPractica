@@ -41,8 +41,8 @@
         <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
     </form>
 
-    <a href="index.php?action=volverAmigos">Atrás</a>
     <?php
         }
-    ?>
+        ?>
+    <a href="index.php?action=volverAmigos">Atrás</a>
 </main>

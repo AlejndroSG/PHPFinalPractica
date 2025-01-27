@@ -17,7 +17,7 @@
                     foreach ($amigoSeleccionado as $key => $value) {
                         ?>
                             <?php
-                                echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td><td><input type='radio' name='idAmigo' value='$value[3]'></td></tr>";
+                                echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td><td><input type='radio' name='idAmigo' value='$value[3]' required></td></tr>";
                             ?>
                         <?php
                     }
@@ -29,3 +29,4 @@
 <?php 
 }
 ?>
+    <a href="index.php?action=volverAmigos">Atrás</a>

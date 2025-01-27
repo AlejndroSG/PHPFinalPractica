@@ -68,10 +68,10 @@
             return $bool;
         }
 
-        public function seleccionAmigo($nomApell){
-            $consulta = "SELECT nombre, apellidos, fNac, id FROM amigos WHERE nombre = ? or apellidos = ?";
+        public function seleccionAmigo($nomApell, $idUsu){
+            $consulta = "SELECT nombre, apellidos, fNac, id FROM amigos WHERE id_Usuario = ? and (nombre = ? or apellidos = ?)";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_param("ss", $nomApell, $nomApell);
+            $sentencia->bind_param("iss",$idUsu, $nomApell, $nomApell);
             $sentencia->bind_result($nom, $apell, $fNac, $id);
             $sentencia->execute();
             $infoAmigos = array();

@@ -16,7 +16,10 @@
             header("Location:../controladores/index.php?action=listarAmigos");
         }else{
             $err = "<p style='color:red'>El usuario o la contraseña son incorrectos</p>";
+            require_once("../header&footer/head.html");
+            require_once("../header&footer/header.html");
             require_once("../vistas/login.php");
+            require_once("../header&footer/footer.html");
         }
     }
     
@@ -49,7 +52,7 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"],$_POST["fecha"])){
+        if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"],formatearFecha($_POST["fecha"]))){
             $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
         }else{
             $msg = "<p style='color:red'>Error al insertar amigo</p>";
@@ -59,6 +62,11 @@
         require_once("../header&footer/header.html");
         require_once("../vistas/amigos.php");
         require_once("../header&footer/footer.html");
+    }
+
+    function formatearFecha($fecha){
+        $fecha = str_replace('-', '/', $fecha); // Cambia los guiones por barras para que la función date funcione correctamente
+        return date('Y-m-d', strtotime($fecha));
     }
 
     function vistaModificarAmigo(){
@@ -75,7 +83,7 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $comprobar = $amigo->modifAmigo($_SESSION["id"], $_POST["nombreModif"], $_POST["apellModif"], $_POST["fechaModif"], $_POST["idAmigo"]);
+        $comprobar = $amigo->modifAmigo($_SESSION["id"], $_POST["nombreModif"], $_POST["apellModif"], formatearFecha($_POST["fechaModif"]), $_POST["idAmigo"]);
 
         $msg = "";
 
@@ -94,15 +102,22 @@
     }
 
     function mostrarAmigos(){
+        session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $amigoSeleccionado = $amigo->seleccionAmigo($_POST["nomApell"]);
+        $amigoSeleccionado = $amigo->seleccionAmigo($_POST["nomApell"], $_SESSION["id"]);
         formBuscarAmigo($amigoSeleccionado);
+    }
+
+    function salir(){
+        session_start();
+        session_destroy();
+        header("Location:../controladores/index.php");
     }
 
     if(!isset($_REQUEST["action"])){
         require_once("../header&footer/head.html");
-        require_once("../header&footer/header.html");
+        // require_once("../header&footer/header.html");
         require_once("../vistas/login.php");
         require_once("../header&footer/footer.html");
     }else{
