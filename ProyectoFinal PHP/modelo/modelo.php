@@ -5,6 +5,7 @@
         private $conn;
         public function __construct(){
             $this->conn = new mysqli("localhost", USUARIO_CON, PSW_CON, "proyectoamigos");
+            $this->conn->set_charset("utf8");
         }
 
         public function getConn() {

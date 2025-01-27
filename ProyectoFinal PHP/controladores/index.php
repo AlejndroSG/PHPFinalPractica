@@ -20,7 +20,7 @@
         }
     }
     
-    function listarAmigos(){
+    function listarAmigos($msg = ""){
             require_once("../modelo/amigos.class.php");
 
             if(session_status() == PHP_SESSION_NONE) session_start();
@@ -41,7 +41,7 @@
     function formInsertarAmigo(){
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
-        require_once("../vistas/insertarAmigo.php");
+        require_once("../vistas/insertarmodificarAmigo.php");
         require_once("../header&footer/footer.html");
     }
 
@@ -64,14 +64,40 @@
     function vistaModificarAmigo(){
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $amigo = $amigo->seleccionarAmigo($_POST["id"]);
+        $idAmigo = $_POST["idAmigo"];
+        $amigo = $amigo->seleccionarAmigo($_POST["idAmigo"]);
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
-        require_once("../vistas/amigos.php");
+        require_once("../vistas/insertarmodificarAmigo.php");
         require_once("../header&footer/footer.html");
     }
     function modificarAmigo(){
+        session_start();
+        require_once("../modelo/amigos.class.php");
+        $amigo = new amigos();
+        $comprobar = $amigo->modifAmigo($_SESSION["id"], $_POST["nombreModif"], $_POST["apellModif"], $_POST["fechaModif"], $_POST["idAmigo"]);
 
+        $msg = "";
+
+        if($comprobar){
+            $msg = "<p style='color: green'>Se ha modificado el usuario correctamente</p>";
+        }
+
+        listarAmigos($msg);
+    }
+
+    function formBuscarAmigo($amigoSeleccionado = ""){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/buscarAmigo.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function mostrarAmigos(){
+        require_once("../modelo/amigos.class.php");
+        $amigo = new amigos();
+        $amigoSeleccionado = $amigo->seleccionAmigo($_POST["nomApell"]);
+        formBuscarAmigo($amigoSeleccionado);
     }
 
     if(!isset($_REQUEST["action"])){

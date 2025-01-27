@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2025 a las 20:26:24
+-- Tiempo de generación: 27-01-2025 a las 13:03:44
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -40,16 +40,21 @@ CREATE TABLE `amigos` (
 --
 
 INSERT INTO `amigos` (`id_Usuario`, `nombre`, `apellidos`, `fNac`, `id`) VALUES
-(1, 'María García', 'Gómez', '1990-05-14', 1),
-(2, 'Luis Hernández', 'Martínez', '1988-11-20', 2),
-(3, 'Carmen Sánchez', 'Rodríguez', '1992-03-08', 3),
-(4, 'Diego Torres', 'López', '1991-07-12', 4),
+(1, 'María Pedra', 'Gómez', '0000-00-00', 1),
+(1, 'Luis Pérez', 'Martínez', '0000-00-00', 2),
+(1, 'Carmen Sánchez', 'Rodríguez', '1992-03-08', 3),
+(1, 'Diego Torres', 'López', '1991-07-12', 4),
 (5, 'Paula Vega', 'Morales', '1993-02-25', 5),
 (6, 'Javier Castillo', 'Pérez', '1989-04-16', 6),
 (7, 'Natalia Romero', 'Fernández', '1994-06-30', 7),
 (8, 'Andrés Muñoz', 'Ruiz', '1990-09-15', 8),
 (9, 'Silvia Martín', 'Ortiz', '1995-12-10', 9),
-(10, 'Francisco Navarro', 'Cruz', '1987-03-22', 10);
+(10, 'Francisco Navarro', 'Cruz', '1987-03-22', 10),
+(1, 'Alejandro', 'Sanchez', '0000-00-00', 12),
+(1, 'Alejandro', 'Luis', '0000-00-00', 13),
+(1, 'Juan Carlos', 'Carlos Juan', '2000-10-10', 14),
+(1, '12', '12', '0000-00-00', 15),
+(1, 'Pedro', 'Martin', '0000-00-00', 16);
 
 -- --------------------------------------------------------
 
@@ -131,16 +136,16 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `pswd`, `tipo`) VALUES
-(1, 'Juan Perez', '1234', 0),
-(2, 'Ana López', 'abcd', 1),
-(3, 'Carlos Ruiz', 'pass123', 0),
-(4, 'Laura Méndez', 'lm2025', 0),
-(5, 'Pedro Fernández', 'pedro2025', 1),
-(6, 'Sofía Jiménez', 'sofia123', 0),
-(7, 'Jorge Ramírez', 'jorgepass', 1),
-(8, 'Marta Díaz', 'marta2025', 0),
-(9, 'Luis Gómez', 'luisgomez', 0),
-(10, 'Elena Torres', 'elena2025', 1);
+(1, 'Juan', '1234', 0),
+(2, 'Ana', 'abcd', 1),
+(3, 'Carlos', 'pass123', 0),
+(4, 'Laura', 'lm2025', 0),
+(5, 'Pedro', 'pedro2025', 1),
+(6, 'Sofía', 'sofia123', 0),
+(7, 'Jorge', 'jorgepass', 1),
+(8, 'Marta', 'marta2025', 0),
+(9, 'Luis', 'luisgomez', 0),
+(10, 'Elena', 'elena2025', 1);
 
 --
 -- Índices para tablas volcadas
@@ -187,7 +192,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
