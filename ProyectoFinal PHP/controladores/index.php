@@ -122,7 +122,6 @@
     }
 
     function listarJuegos($msg = ""){
-        session_start();
         require_once("../modelo/juegos.class.php");
         $juego = new juegos();
         $juegos = $juego->listarJuegos($_SESSION["id"]);
