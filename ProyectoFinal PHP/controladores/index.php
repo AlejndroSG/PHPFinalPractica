@@ -29,7 +29,7 @@
             if(session_status() == PHP_SESSION_NONE) session_start();
 
             $amigo = new amigos();
-            $listaAmigos = $amigo->listarAmigos($_SESSION["nom"]);
+            $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
             require_once("../header&footer/head.html");
             require_once("../header&footer/header.html");
             require_once("../vistas/amigos.php");
@@ -38,6 +38,9 @@
 
     function volverAmigos(){
         listarAmigos();
+    }
+    function volverJuegos(){
+        listarJuegos();
     }
 
 
@@ -52,7 +55,10 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"],formatearFecha($_POST["fecha"]))){
+        $fecha = formatearFecha($_POST["fecha"]);
+        echo $fecha;
+
+        if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"], $fecha)){
             $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
         }else{
             $msg = "<p style='color:red'>Error al insertar amigo</p>";
@@ -65,7 +71,6 @@
     }
 
     function formatearFecha($fecha){
-        $fecha = str_replace('-', '/', $fecha); // Cambia los guiones por barras para que la función date funcione correctamente
         return date('Y-m-d', strtotime($fecha));
     }
 
@@ -101,12 +106,57 @@
         require_once("../header&footer/footer.html");
     }
 
+    function fromInsertarJuego(){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/insertarmodificarJuego.php");
+        require_once("../header&footer/footer.html");   
+    }
+
     function mostrarAmigos(){
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
         $amigoSeleccionado = $amigo->seleccionAmigo($_POST["nomApell"], $_SESSION["id"]);
         formBuscarAmigo($amigoSeleccionado);
+    }
+
+    function listarJuegos($msg = ""){
+        session_start();
+        require_once("../modelo/juegos.class.php");
+        $juego = new juegos();
+        $juegos = $juego->listarJuegos($_SESSION["id"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/juegos.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function compRuta($nombreTemporal, $nombre){
+        session_start();
+        $rutaorigen = $nombreTemporal;
+        $rutadestino = "../img/".$_SESSION["nom"]."/";
+        
+        if(!file_exists($rutadestino)){
+            mkdir($rutadestino);
+        }
+        $rutadestino.= $nombre;
+        move_uploaded_file($rutaorigen, $rutadestino);
+        
+        return $rutadestino;
+    }
+
+    function insertarJuego(){
+        $url = compRuta($_FILES["foto"]["tmp_name"], $_FILES["foto"]["name"]);
+        require_once("../modelo/juegos.class.php");
+        $juego = new juegos();
+        $msg;
+        if($juego->insertarJuego($url, $_POST["tit"], $_POST["plat"], $_POST["anio"], $_SESSION["id"])){
+            $msg = "<p style='color: green'>Juego insertado correctamente</p>";
+        }else{
+            $msg = "<p style='color: red'>Juego no insertado</p>";
+        };
+        listarjuegos($msg);
     }
 
     function salir(){

@@ -10,10 +10,10 @@
             $this->conn = $this->db->getConn();
         }
 
-        public function listarAmigos($nomUsu){
-            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, id FROM amigos WHERE amigos.id_Usuario in (SELECT id FROM usuarios WHERE nombre = ?)";
+        public function listarAmigos($id){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, id FROM amigos WHERE amigos.id_Usuario = ?";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_param("s", $nomUsu);
+            $sentencia->bind_param("i", $id);
             $sentencia->bind_result($nom, $apell, $fnac, $id);
             $infoAmigos = array();
             $sentencia->execute();
@@ -38,7 +38,7 @@
         public function insertAmigo($id_Usuario, $nombre, $apellido, $fnac){
             $consulta = "INSERT INTO amigos (id_Usuario, nombre, apellidos, fNac) values (?,?,?,?)";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_param("issd", $id_Usuario, $nombre, $apellido, $fnac);
+            $sentencia->bind_param("isss", $id_Usuario, $nombre, $apellido, $fnac);
             $sentencia->execute();
             $bool;
             
