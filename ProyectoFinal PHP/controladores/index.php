@@ -99,10 +99,28 @@
         listarAmigos($msg);
     }
 
+    function vistaModificarJuego(){
+        require_once("../modelo/juegos.class.php");
+        $juego = new juegos();
+        $idJuego = $_POST["idJuego"];
+        $juego = $juego->seleccionarJuego($_POST["idJuego"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/insertarmodificarJuego.php");
+        require_once("../header&footer/footer.html");
+    }
+
     function formBuscarAmigo($amigoSeleccionado = ""){
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
         require_once("../vistas/buscarAmigo.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function formBuscarJuego($juegos = ""){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/buscarJuego.php");
         require_once("../header&footer/footer.html");
     }
 
@@ -121,7 +139,31 @@
         formBuscarAmigo($amigoSeleccionado);
     }
 
+    function mostrarJuegos(){
+        session_start();
+        require_once("../modelo/juegos.class.php");
+        $juego = new juegos();
+        $juegos = $juego->seleccionJuego($_POST["titPlat"], $_SESSION["id"]);
+        formBuscarJuego($juegos);
+    }
+
+    function modificarJuego(){
+        session_start();
+        require_once("../modelo/juegos.class.php");
+        $juego = new juegos();
+        $comprobar = $juego->modificarJuego($_SESSION["id"], compRuta($_FILES["imgnew"]["tmp_name"], $_FILES["imgnew"]["name"]), $_POST["titnew"], $_POST["platnew"], $_POST["lanznew"], $_POST["idJuego"]);
+
+        $msg = "";
+
+        if($comprobar){
+            $msg = "<p style='color: green'>Se ha modificado el juego correctamente</p>";
+        }
+
+        listarJuegos($msg);
+    }
+
     function listarJuegos($msg = ""){
+        if(session_status() == PHP_SESSION_NONE) session_start();
         require_once("../modelo/juegos.class.php");
         $juego = new juegos();
         $juegos = $juego->listarJuegos($_SESSION["id"]);
@@ -132,7 +174,7 @@
     }
 
     function compRuta($nombreTemporal, $nombre){
-        session_start();
+        if(session_status() == PHP_SESSION_NONE) session_start();
         $rutaorigen = $nombreTemporal;
         $rutadestino = "../img/".$_SESSION["nom"]."/";
         

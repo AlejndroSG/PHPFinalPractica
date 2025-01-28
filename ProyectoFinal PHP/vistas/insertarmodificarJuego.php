@@ -1,21 +1,25 @@
 <main>
     <?php
         if(isset($_POST["modificar"])){
-            echo "<form action='../controladores/index.php?action=modificarJuego' method='post'>";
+            echo "<form action='../controladores/index.php?action=modificarJuego' method='post' enctype='multipart/form-data'>";
                 echo "<table border='1'>";
                     echo "<input type='hidden' name='idJuego' value='$idJuego'>";
                     echo "<tr>";
                         echo "<td>";
-                            echo "<label>Nuevo Nombre</label><br>";
-                            echo "<input type='text' name='nombreModif' value='$amigo[0]'>";
+                            echo "<label>Nueva Imagen</label><br>";
+                            echo "<input type='file' name='imgnew' value='$juego[1]'>";
                         echo "</td>";
                         echo "<td>";
-                            echo "<label>Nuevo Apellido</label><br>";
-                            echo "<input type='text' name='apellModif' value='$amigo[1]'>";
+                            echo "<label>Nuevo Título</label><br>";
+                            echo "<input type='text' name='titnew' value='$juego[2]'>";
                         echo "</td>";
                         echo "<td>";
-                            echo "<label>Nueva Fecha</label><br>";
-                            echo "<input type='date' name='fechaModif' value='$amigo[2]'>";
+                            echo "<label>Nueva Plataforma</label><br>";
+                            echo "<input type='text' name='platnew' value='$juego[3]'>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo "<label>Nuevo Lanzamiento</label><br>";
+                            echo "<input type='text' name='lanznew' value='$juego[4]'>";
                         echo "</td>";
                     echo "</tr>";
                 echo "</table>";
@@ -46,6 +50,7 @@
 
     <?php
         }
+        if(isset($msg)) echo $msg;
         ?>
     <a href="index.php?action=volverJuegos">Atrás</a>
 </main>
