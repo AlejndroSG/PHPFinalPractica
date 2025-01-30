@@ -40,5 +40,21 @@
             $sentencia->close();
             return $bool;
         }
+
+        public function seleccionPrestamo($idUsu, $nomTit){
+            $consulta = "SELECT prestamos.id, amigos.nombre, juegos.titulo, juegos.url, prestamos.fecha_inicio, prestamos.devuelto 
+                        FROM usuarios, amigos, juegos, prestamos 
+                        WHERE prestamos.id_Usu = usuarios.id AND prestamos.id_Amigo = amigos.id AND prestamos.id_Juego = juegos.id AND prestamos.id_Usu = ? AND (juegos.titulo = ? OR amigos.nombre = ?)";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("iss", $idUsu, $nomTit, $nomTit);
+            $sentencia->bind_result($IdP, $Anom, $Jutit, $Jurl, $Finicio, $Dev);
+            $infoPrestamo = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($infoPrestamo, [$IdP, $Anom, $Jutit, $Jurl, $Finicio, $Dev]);
+            };
+            $sentencia->close();
+            return $infoPrestamo;
+        }
     }
 ?>

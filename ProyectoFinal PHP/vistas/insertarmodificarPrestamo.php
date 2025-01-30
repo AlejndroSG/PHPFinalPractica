@@ -64,5 +64,5 @@
         }
         if(isset($msg)) echo $msg;
         ?>
-    <a href="index.php?action=volverJuegos">Atrás</a>
+    <a href="index.php?action=volverPrestamos">Atrás</a>
 </main>

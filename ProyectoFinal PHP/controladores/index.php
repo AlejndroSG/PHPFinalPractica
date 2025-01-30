@@ -42,6 +42,9 @@
     function volverJuegos(){
         listarJuegos();
     }
+    function volverPrestamos(){
+        listarPrestamos();       
+    }
 
 
     function formInsertarAmigo(){
@@ -56,14 +59,13 @@
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
         $fecha = formatearFecha($_POST["fecha"]);
-        echo $fecha;
 
         if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"], $fecha)){
             $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
         }else{
             $msg = "<p style='color:red'>Error al insertar amigo</p>";
         }
-        $listaAmigos = $amigo->listarAmigos($_SESSION["nom"]);
+        $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
         require_once("../vistas/amigos.php");
@@ -88,7 +90,12 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $comprobar = $amigo->modifAmigo($_SESSION["id"], $_POST["nombreModif"], $_POST["apellModif"], formatearFecha($_POST["fechaModif"]), $_POST["idAmigo"]);
+
+        $comprobar = $amigo->modifAmigo(
+            $_SESSION["id"], $_POST["nombreModif"],
+             $_POST["apellModif"], 
+             formatearFecha($_POST["fechaModif"]), 
+             $_POST["idAmigo"]);
 
         $msg = "";
 
@@ -131,6 +138,13 @@
         require_once("../header&footer/footer.html");   
     }
 
+    function formBuscarPrestamo(){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/buscarPrestamo.php");
+        require_once("../header&footer/footer.html");
+    }
+
     function mostrarAmigos(){
         session_start();
         require_once("../modelo/amigos.class.php");
@@ -145,6 +159,17 @@
         $juego = new juegos();
         $juegos = $juego->seleccionJuego(strtoupper($_POST["titPlat"]), $_SESSION["id"]);
         formBuscarJuego($juegos);
+    }
+
+    function mostrarPrestamos(){
+        session_start();
+        require_once("../modelo/prestamos.class.php");
+        $prestamo = new prestamos();
+        $prestamos = $prestamo->seleccionPrestamo($_SESSION["id"], $_POST["nomTit"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/prestamos.php");
+        require_once("../header&footer/footer.html");
     }
 
     function modificarJuego(){
