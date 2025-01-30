@@ -17,7 +17,7 @@
                     foreach ($juegos as $key => $value) {
                         ?>
                             <?php
-                                echo "<tr><td><img src='$value[1]' class='img-fluid '></td><td>$value[2]</td><td>$value[3]</td><td>$value[4]</td><td><input type='radio' name='idAmigo' value='$value[3]' required></td></tr>";
+                                echo "<tr><td><img src='$value[1]' class='img-fluid '></td><td>$value[2]</td><td>$value[3]</td><td>$value[4]</td><td><input type='radio' name='idJuego' value='$value[0]' required></td></tr>";
                             ?>
                         <?php
                     }

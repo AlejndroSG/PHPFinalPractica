@@ -1,9 +1,9 @@
 <main>
     <?php
         if(isset($_POST["modificar"])){
-            echo "<form action='../controladores/index.php?action=modificarJuego' method='post' enctype='multipart/form-data'>";
+            echo "<form action='../controladores/index.php?action=modificarPrestamo' method='post' enctype='multipart/form-data'>";
                 echo "<table border='1'>";
-                    echo "<input type='hidden' name='idJuego' value='$idJuego'>";
+                    echo "<input type='hidden' name='idPrestamo' value='$idPrestamo'>";
                     echo "<tr>";
                         echo "<td>";
                             echo "<label>Nueva Imagen</label><br>";
@@ -28,23 +28,34 @@
             echo "</form>";
         }else{
     ?>
-    <form action="../controladores/index.php?action=insertarJuego" method="post" enctype="multipart/form-data">
-        <h1 class="h3 mb-3 fw-normal">NUEVO JUEGO</h1>
+    <form action="../controladores/index.php?action=insertarPrestamo" method="post" enctype="multipart/form-data">
+        <h1 class="h3 mb-3 fw-normal">NUEVO PRÉSTAMO</h1>
         <div class="form-floating">
-            <label for="floatingInput">Título</label>
-            <input type="text" class="form-control" name="tit">
+            <label for="floatingInput">Amigo</label>
+            <select name="amigo">
+                <?php
+                    foreach($amigos as $amigo){
+                        echo "<option value='$amigo[3]'>$amigo[0] $amigo[1]</option>";
+                    }
+                ?>
+            </select>
         </div>
         <div class="form-floating">
-            <label for="floatingInput">Plataforma</label>
-            <input type="text" class="form-control" name="plat">
+            <label for="floatingInput">Juego</label>
+            <select name="juego">
+                <?php
+                    foreach($juegos as $juego){
+                        echo "<option value='$juego[0]'>$juego[2] -- $juego[3]</option>";
+                    }
+                ?>
+            </select>
         </div>
         <div class="form-floating">
-            <label for="floatingInput">Año de edición</label>
-            <input type="text" class="form-control" name="anio">
+            <label for="floatingInput">Fecha de inicio</label>
+            <input type="date" class="form-control" name="fecha">
         </div>
         <div class="form-floating">
-            <label for="floatingInput">Foto del juego</label>
-            <input type="file" class="form-control" name="foto">
+            <input type="hidden" class="form-control" name="devuelto" default="NO">
         </div>
         <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
     </form>

@@ -143,7 +143,7 @@
         session_start();
         require_once("../modelo/juegos.class.php");
         $juego = new juegos();
-        $juegos = $juego->seleccionJuego($_POST["titPlat"], $_SESSION["id"]);
+        $juegos = $juego->seleccionJuego(strtoupper($_POST["titPlat"]), $_SESSION["id"]);
         formBuscarJuego($juegos);
     }
 
@@ -171,6 +171,47 @@
         require_once("../header&footer/header.html");
         require_once("../vistas/juegos.php");
         require_once("../header&footer/footer.html");
+    }
+
+    function listarPrestamos(){
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        require_once("../modelo/prestamos.class.php");
+        $prestamo = new prestamos();
+        $prestamos = $prestamo->listarPrestamos($_SESSION["id"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/prestamos.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function formInsertarPrestamo(){
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        require_once("../modelo/prestamos.class.php");
+        require_once("../modelo/amigos.class.php");
+        require_once("../modelo/juegos.class.php");
+        $prestamo = new prestamos();
+        $prestamos = $prestamo->listarPrestamos($_SESSION["id"]);
+        $amigos = new amigos();
+        $amigos = $amigos->listarAmigos($_SESSION["id"]);
+        $juegos = new juegos();
+        $juegos = $juegos->listarJuegos($_SESSION["id"]);
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/insertarmodificarPrestamo.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function insertarPrestamo(){
+        session_start();
+        require_once("../modelo/prestamos.class.php");
+        $prestamo = new prestamos();
+        $msg;
+        if($prestamo->insertarPrestamo($_SESSION["id"], $_POST["amigo"], $_POST["juego"], $_POST["fecha"], $_POST["devuelto"])){
+            $msg = "<p style='color: green'>Prestamo insertado correctamente</p>";
+        }else{
+            $msg = "<p style='color: red'>Prestamo no insertado</p>";
+        };
+        listarPrestamos($msg);
     }
 
     function compRuta($nombreTemporal, $nombre){
