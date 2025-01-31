@@ -24,6 +24,22 @@
             return $infoJuegos;
         }
 
+        public function listarJuegosNoPrestados($id){
+            $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento
+            FROM juegos
+            WHERE juegos.id_Usu = ? and juegos.id not in (select id_juego from prestamos where prestamos.devuelto = 0)";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("i", $id);
+            $sentencia->bind_result($idJuegos, $url, $titulo, $plataf, $lanza);
+            $infoJuegos = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($infoJuegos, [$idJuegos, $url, $titulo, $plataf, $lanza]);
+            };
+            $sentencia->close();
+            return $infoJuegos;
+        }
+
         public function seleccionarJuego($idJuego){
             $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento FROM juegos WHERE juegos.id = ?";
             $sentencia = $this->conn->prepare($consulta);

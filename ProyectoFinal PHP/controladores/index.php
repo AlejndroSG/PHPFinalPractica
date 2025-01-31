@@ -73,7 +73,21 @@
     }
 
     function formatearFecha($fecha){
-        return date('Y-m-d', strtotime($fecha));
+        if(strtotime($fecha) < time()){
+            return date('Y-m-d', strtotime($fecha));
+        }else{
+            $msg = "<p style='color:red'>La fecha introducida es posterior a la actual</p>";
+            listarAmigos($msg);
+        }
+    }
+
+    function formatearFechaPosteriori($fecha){
+        if(strtotime($fecha) > time()){
+            return date('Y-m-d', strtotime($fecha));
+        }else{
+            $msg = "<p style='color:red'>La fecha introducida es anterior a la actual</p>";
+            listarPrestamos($msg);
+        }
     }
 
     function vistaModificarAmigo(){
@@ -115,6 +129,18 @@
         require_once("../header&footer/header.html");
         require_once("../vistas/insertarmodificarJuego.php");
         require_once("../header&footer/footer.html");
+    }
+
+    function devolverPrestamo(){
+        require_once("../modelo/prestamos.class.php");
+        $prestamo = new prestamos();
+        $idPrestamo = $_POST["idPrestamo"];
+        if($prestamo->devolverPrestamo($idPrestamo)){
+            $msg = "<p style='color:green'>Se ha devuelto el juego correctamente</p>";
+        }else{
+            $msg = "<p style='color:red'>Error al devolver el juego</p>";
+        }
+        listarPrestamos($msg);
     }
 
     function formBuscarAmigo($amigoSeleccionado = ""){
@@ -198,7 +224,7 @@
         require_once("../header&footer/footer.html");
     }
 
-    function listarPrestamos(){
+    function listarPrestamos($msg = ""){
         if(session_status() == PHP_SESSION_NONE) session_start();
         require_once("../modelo/prestamos.class.php");
         $prestamo = new prestamos();
@@ -219,7 +245,7 @@
         $amigos = new amigos();
         $amigos = $amigos->listarAmigos($_SESSION["id"]);
         $juegos = new juegos();
-        $juegos = $juegos->listarJuegos($_SESSION["id"]);
+        $juegos = $juegos->listarJuegosNoPrestados($_SESSION["id"]);
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
         require_once("../vistas/insertarmodificarPrestamo.php");
@@ -231,7 +257,7 @@
         require_once("../modelo/prestamos.class.php");
         $prestamo = new prestamos();
         $msg;
-        if($prestamo->insertarPrestamo($_SESSION["id"], $_POST["amigo"], $_POST["juego"], $_POST["fecha"], $_POST["devuelto"])){
+        if($prestamo->insertarPrestamo($_SESSION["id"], $_POST["amigo"], $_POST["juego"], formatearFechaPosteriori($_POST["fecha"]), $_POST["devuelto"])){
             $msg = "<p style='color: green'>Prestamo insertado correctamente</p>";
         }else{
             $msg = "<p style='color: red'>Prestamo no insertado</p>";
