@@ -78,6 +78,8 @@
         }else{
             $msg = "<p style='color:red'>La fecha introducida es posterior a la actual</p>";
             listarAmigos($msg);
+            // header:location("../controladores/index.php?action=listarAmigos");
+            // header("Location:../controladores/index.php");
         }
     }
 
