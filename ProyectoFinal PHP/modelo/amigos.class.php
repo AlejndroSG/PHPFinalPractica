@@ -24,6 +24,19 @@
             return $infoAmigos;
         }
 
+        public function listarContactos(){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_result($nom, $apell, $fnac, $id);
+            $infoAmigos = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($infoAmigos, [$nom, $apell, $fnac, $id]);
+            };
+            $sentencia->close();
+            return $infoAmigos;
+        }
+
         public function seleccionarAmigo($idAmigo){
             $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac FROM amigos WHERE amigos.id = ?";
             $sentencia = $this->conn->prepare($consulta);

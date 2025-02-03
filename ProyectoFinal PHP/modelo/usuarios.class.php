@@ -11,14 +11,17 @@
         }
 
         public function getID($nomUsu){
-            $consulta = "SELECT id FROM usuarios WHERE nombre = ?";
+            $consulta = "SELECT id, tipo FROM usuarios WHERE nombre = ?";
             $sentencia = $this->conn->prepare($consulta);
             $sentencia->bind_param("s", $nomUsu);
-            $sentencia->bind_result($id);
+            $sentencia->bind_result($id, $type);
+            $info = array();
             $sentencia->execute();
-            $sentencia->fetch();
+            while($sentencia->fetch()){
+                array_push($info, [$id, $type]);
+            };
             $sentencia->close();
-            return $id;
+            return $info;
         }
     }
 ?>
