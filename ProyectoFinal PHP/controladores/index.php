@@ -20,11 +20,11 @@
             $idTipo = $usu->getId($_SESSION["nom"]);
             $_SESSION["id"] = $idTipo[0][0];
             $_SESSION["tipo"] = $idTipo[0][1];
-            if($_SESSION["tipo"] == 0){
-                header("Location:../controladores/index.php?action=listarContactos");
-            }else{
+            // if($_SESSION["tipo"] == 0){
+            //     header("Location:../controladores/index.php?action=listarContactos");
+            // }else{
                 header("Location:../controladores/index.php?action=listarAmigos");
-            }
+            // }
         }else{
             $err = "<p style='color:red'>El usuario o la contraseña son incorrectos</p>";
             require_once("../header&footer/head.html");
@@ -39,24 +39,32 @@
 
             if(session_status() == PHP_SESSION_NONE) session_start();
 
-            $amigo = new amigos();
-            $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
             require_once("../header&footer/head.html");
-            require_once("../header&footer/header.html");
+            $amigo = new amigos();
+            if($_SESSION["tipo"] == 0){
+                $listaAmigos = $amigo->listarContactos();
+                $admin = true;
+                require_once("../header&footer/headerAdmin.html");
+            }else{
+                $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
+                $admin = false;
+                require_once("../header&footer/header.html");
+            } 
             require_once("../vistas/amigos.php");
             require_once("../header&footer/footer.html");
     }
 
-    function listarContactos($msg = ""){
-        require_once("../modelo/amigos.class.php");
-        if(session_status() == PHP_SESSION_NONE) session_start();
-        $amigo = new amigos();
-        $listaAmigos = $amigo->listarContactos();
-        require_once("../header&footer/head.html");
-        require_once("../header&footer/headerAdmin.html");
-        require_once("../vistas/amigos.php");
-        require_once("../header&footer/footer.html");
-    }
+    // function listarContactos($msg = ""){
+    //     require_once("../modelo/amigos.class.php");
+    //     if(session_status() == PHP_SESSION_NONE) session_start();
+    //     $amigo = new amigos();
+    //     $listaAmigos = $amigo->listarContactos();
+    //     $admin = true;
+    //     require_once("../header&footer/head.html");
+    //     require_once("../header&footer/headerAdmin.html");
+    //     require_once("../vistas/amigos.php");
+    //     require_once("../header&footer/footer.html");
+    // }
 
     function volverAmigos(){
         listarAmigos();

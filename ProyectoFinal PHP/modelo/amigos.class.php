@@ -25,13 +25,13 @@
         }
 
         public function listarContactos(){
-            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_result($nom, $apell, $fnac, $id);
+            $sentencia->bind_result($nom, $apell, $fnac, $nombreDuenio, $id);
             $infoAmigos = array();
             $sentencia->execute();
             while($sentencia->fetch()){
-                array_push($infoAmigos, [$nom, $apell, $fnac, $id]);
+                array_push($infoAmigos, [$nom, $apell, $fnac, $nombreDuenio, $id]);
             };
             $sentencia->close();
             return $infoAmigos;
