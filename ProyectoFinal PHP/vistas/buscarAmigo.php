@@ -1,4 +1,5 @@
-<?php
+<main>
+    <?php
     if(!isset($_POST["Enviar"])){
         ?>
             <form action="../controladores/index.php?action=mostrarAmigos" method="post">
@@ -7,26 +8,27 @@
                 <input type="text" name="nomApell">
                 <input type="submit" value="Enviar" name="Enviar">
             </form>
-        <?php
+            <?php
     }else{
         ?>
         <form action="index.php?action=vistaModificarAmigo" method="post">
         <?php
-            echo "<table border='1'>";
-                echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th></tr>";
-                    foreach ($amigoSeleccionado as $key => $value) {
-                        ?>
+            echo "<table border='1' class='table'>";
+            echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th><th>Modificar</th></tr>";
+            foreach ($amigoSeleccionado as $key => $value) {
+                ?>
                             <?php
                                 echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td><td><input type='radio' name='idAmigo' value='$value[3]' required></td></tr>";
-                            ?>
+                                ?>
                         <?php
                     }
                     echo "</table>";
-            if(isset($msg)) echo $msg;
-        ?>
+                    if(isset($msg)) echo $msg;
+                    ?>
     <input type="submit" value="Modificar" name="modificar"> 
-    </form>
+</form>
 <?php 
 }
 ?>
     <a href="index.php?action=volverAmigos">Atrás</a>
+</main>

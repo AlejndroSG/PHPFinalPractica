@@ -5,9 +5,15 @@
 
         if($modelo->compCredenciales($_POST["nom"], $_POST["psw"])){
             if(session_status() == PHP_SESSION_NONE){
-                // require_once("../modelo/usuarios.class.php");
                 session_start();
                 $_SESSION["nom"] = $_POST["nom"];
+            }
+            if($_POST["rec"]){
+                $_COOKIE["nom"] = $_POST["nom"];
+                setcookie("nom", $_POST["nom"], time() + (86400 * 30), "/");
+            }else{
+                unset($_COOKIE["nom"]);
+                setcookie("nom", "", time() - 3600, "/");
             }
             require_once("../modelo/usuarios.class.php");
             $usu = new usuarios();
@@ -58,28 +64,29 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $fecha = formatearFecha($_POST["fecha"]);
-
-        if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"], $fecha)){
-            $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
-        }else{
-            $msg = "<p style='color:red'>Error al insertar amigo</p>";
+        $fecha=$_POST["fecha"];
+        if(formatearFecha($fecha)){
+            if($amigo->insertAmigo($_SESSION["id"],$_POST["nom"],$_POST["apell"], $fecha)){
+                $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
+            }else{
+                $msg = "<p style='color:red'>Error al insertar amigo</p>";
+            }
+            $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
+            require_once("../header&footer/head.html");
+            require_once("../header&footer/header.html");
+            require_once("../vistas/amigos.php");
+            require_once("../header&footer/footer.html");
         }
-        $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
-        require_once("../header&footer/head.html");
-        require_once("../header&footer/header.html");
-        require_once("../vistas/amigos.php");
-        require_once("../header&footer/footer.html");
+
     }
 
-    function formatearFecha($fecha){
+    function formatearFecha(&$fecha){
         if(strtotime($fecha) < time()){
-            return date('Y-m-d', strtotime($fecha));
+            $fecha = date('Y-m-d', strtotime($fecha));
+            return true;
         }else{
             $msg = "<p style='color:red'>La fecha introducida es posterior a la actual</p>";
             listarAmigos($msg);
-            // header:location("../controladores/index.php?action=listarAmigos");
-            // header("Location:../controladores/index.php");
         }
     }
 
@@ -302,7 +309,6 @@
 
     if(!isset($_REQUEST["action"])){
         require_once("../header&footer/head.html");
-        // require_once("../header&footer/header.html");
         require_once("../vistas/login.php");
         require_once("../header&footer/footer.html");
     }else{

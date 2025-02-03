@@ -3,7 +3,7 @@
         <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control" name="nom" value=<?php if(isset($_COOKIE["usuario"])) echo $_COOKIE["usuario"] ?>>
+            <input type="text" class="form-control" name="nom" value=<?php if(isset($_COOKIE["nom"])) echo $_COOKIE["nom"] ?>>
             <label for="floatingInput">Nombre de Usuario</label>
         </div>
         <div class="form-floating">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-check text-start my-3">
-        <input class="form-check-input" type="checkbox" name="rec" <?php if(isset($_COOKIE["usuario"])) echo "checked"; ?> id="flexCheckDefault">
+        <input class="form-check-input" type="checkbox" name="rec" <?php if(isset($_COOKIE["nom"])) echo "checked"; ?> id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
             Recuerdame
         </label>
