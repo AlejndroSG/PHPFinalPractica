@@ -18,13 +18,13 @@
             require_once("../modelo/usuarios.class.php");
             $usu = new usuarios();
             $idTipo = $usu->getId($_SESSION["nom"]);
+            if($idTipo[0][1] == 0){
+                $_SESSION["tipo"] = true;
+            }else{
+                $_SESSION["tipo"] = false;
+            }
             $_SESSION["id"] = $idTipo[0][0];
-            $_SESSION["tipo"] = $idTipo[0][1];
-            // if($_SESSION["tipo"] == 0){
-            //     header("Location:../controladores/index.php?action=listarContactos");
-            // }else{
-                header("Location:../controladores/index.php?action=listarAmigos");
-            // }
+            header("Location:../controladores/index.php?action=listarAmigos");
         }else{
             $err = "<p style='color:red'>El usuario o la contraseña son incorrectos</p>";
             require_once("../header&footer/head.html");
@@ -41,7 +41,7 @@
 
             require_once("../header&footer/head.html");
             $amigo = new amigos();
-            if($_SESSION["tipo"] == 0){
+            if($_SESSION["tipo"]){
                 $listaAmigos = $amigo->listarContactos();
                 $admin = true;
                 require_once("../header&footer/headerAdmin.html");
@@ -53,18 +53,6 @@
             require_once("../vistas/amigos.php");
             require_once("../header&footer/footer.html");
     }
-
-    // function listarContactos($msg = ""){
-    //     require_once("../modelo/amigos.class.php");
-    //     if(session_status() == PHP_SESSION_NONE) session_start();
-    //     $amigo = new amigos();
-    //     $listaAmigos = $amigo->listarContactos();
-    //     $admin = true;
-    //     require_once("../header&footer/head.html");
-    //     require_once("../header&footer/headerAdmin.html");
-    //     require_once("../vistas/amigos.php");
-    //     require_once("../header&footer/footer.html");
-    // }
 
     function volverAmigos(){
         listarAmigos();
@@ -78,6 +66,8 @@
 
 
     function formInsertarAmigo(){
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        $admin = $_SESSION["tipo"];
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
         require_once("../vistas/insertarmodificarAmigo.php");
@@ -137,11 +127,12 @@
         session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
+        formatearFecha($_POST["fechaModif"]);
 
         $comprobar = $amigo->modifAmigo(
             $_SESSION["id"], $_POST["nombreModif"],
              $_POST["apellModif"], 
-             formatearFecha($_POST["fechaModif"]), 
+             $_POST["fechaModif"], 
              $_POST["idAmigo"]);
 
         $msg = "";

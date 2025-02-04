@@ -24,7 +24,16 @@
         }else{
     ?>
     <form action="../controladores/index.php?action=insertarAmigo" method="post">
-        <h1 class="h3 mb-3 fw-normal">NUEVO AMIGO</h1>
+        <h1 class="h3 mb-3 fw-normal">
+            <?php
+                if(!$admin){
+                    echo "Insertar amigo";
+                }else{
+                    echo "Insertar contacto";
+                }
+            ?>
+
+        </h1>
 
         <div class="form-floating">
             <label for="floatingInput">Nombre</label>

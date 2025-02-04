@@ -1,14 +1,21 @@
     <main class="text-center">
         <?php
-            if(!$admin){
-                echo "<a href='../controladores/index.php?action=formInsertarAmigo' class='btn btn-danger'>Insertar Amigos</a>";
-                echo "<a href='../controladores/index.php?action=formBuscarAmigo' class='btn btn-danger'>Buscar Amigos</a>";
-            }else{
-                 echo "<a href='../controladores/index.php?action=formInsertarContactos' class='btn btn-danger'>Insertar Contactos</a>";
-                 echo "<a href='../controladores/index.php?action=formBuscarContactos' class='btn btn-danger'>Buscar Contactos</a>";
-            }
+            echo "<a href='../controladores/index.php?action=formInsertarAmigo' class='btn btn-danger'>";
+                if(!$admin){
+                    echo "Insertar Amigo";  
+                }else{
+                    echo"Insertar Contacto";
+                }
+            echo"</a>";
+            echo "<a href='../controladores/index.php?action=formBuscarAmigo' class='btn btn-danger'>";
+                if(!$admin){
+                    echo "Buscar Amigo";  
+                }else{
+                    echo"Buscar Contacto";
+                }
+            echo"</a>";
         ?>
-        <form action="index.php?action=vistaModificarAmigo" method="post" class="container mt-3 mb-3 w-50 text-center mx-auto">
+        <form action="index.php?action=vistaModificarAmigo" method="post">
             <?php
                 echo "<table border='1' class='table table-striped table-dark table-hover table-bordered table-sm text-center'>";
                 if(!$admin){
