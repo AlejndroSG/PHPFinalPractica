@@ -23,5 +23,18 @@
             $sentencia->close();
             return $info;
         }
+
+        public function listarUsuarios(){
+            $consulta = "SELECT id, nombre FROM usuarios Where tipo = 1;";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_result($idUsu, $nomUsu);
+            $info = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($info, [$idUsu, $nomUsu]);
+            };
+            $sentencia->close();
+            return $info;
+        }
     }
 ?>

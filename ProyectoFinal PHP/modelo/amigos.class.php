@@ -48,6 +48,17 @@
             return [$nom, $apell, $fnac];
         }
 
+        public function seleccionarContacto($idAmigo){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id_Usuario FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id AND amigos.id = ?";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("i", $idAmigo);
+            $sentencia->bind_result($nom, $apell, $fnac, $duenio, $idDuenio);
+            $sentencia->execute();
+            $sentencia->fetch();
+            $sentencia->close();
+            return [$nom, $apell, $fnac, $duenio, $idDuenio];
+        }
+
         public function insertAmigo($id_Usuario, $nombre, $apellido, $fnac){
             $consulta = "INSERT INTO amigos (id_Usuario, nombre, apellidos, fNac) values (?,?,?,?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -90,6 +101,20 @@
             $infoAmigos = array();
             while($sentencia->fetch()){
                 array_push($infoAmigos, [$nom, $apell, $fNac, $id]);
+            };
+            $sentencia->close();
+            return $infoAmigos;
+        }
+
+        public function seleccionContacto($nomApell){
+            $consulta = "SELECT amigos.id, amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id and (amigos.nombre = ? or amigos.apellidos = ?)";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("ss", $nomApell, $nomApell);
+            $sentencia->bind_result($id, $nom, $apell, $fNac, $duenio);
+            $sentencia->execute();
+            $infoAmigos = array();
+            while($sentencia->fetch()){
+                array_push($infoAmigos, [$id, $nom, $apell, $fNac, $duenio]);
             };
             $sentencia->close();
             return $infoAmigos;

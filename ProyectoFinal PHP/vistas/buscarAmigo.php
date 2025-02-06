@@ -14,11 +14,17 @@
         <form action="index.php?action=vistaModificarAmigo" method="post">
         <?php
             echo "<table border='1' class='table'>";
-            echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th><th>Modificar</th></tr>";
+            echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th>";
+            if(isset($admin)) echo "<th>Dueño</th>";
+            echo "<th>Modificar</th></tr>";
             foreach ($amigoSeleccionado as $key => $value) {
                 ?>
                             <?php
-                                echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td><td><input type='radio' name='idAmigo' value='$value[3]' required></td></tr>";
+                                if(!isset($admin)){
+                                    echo "<tr><td>$value[0]</td><td>$value[1]</td><td>$value[2]</td><td><input type='radio' name='idAmigo' value='$value[3]' required></td></tr>";
+                                }else{
+                                    echo "<tr><td>$value[1]</td><td>$value[2]</td><td>$value[3]</td><td>$value[4]</td><td><input type='radio' name='idAmigo' value='$value[0]' required></td></tr>";
+                                }
                                 ?>
                         <?php
                     }

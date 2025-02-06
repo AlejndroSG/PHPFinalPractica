@@ -17,6 +17,17 @@
                             echo "<label>Nueva Fecha</label><br>";
                             echo "<input type='date' name='fechaModif' value='$amigo[2]'>";
                         echo "</td>";
+                        echo "<td>";
+                            echo "<label>Nuevo Dueño</label><br>";
+                            echo "<select name='idUsuario'>";
+                            echo "<option selected value='$amigo[4]'>$amigo[3]</option>";
+                            foreach($usuarios as $usuario){
+                                if(strcmp($usuario[1], $amigo[0]) == 1){
+                                    echo "<option value='$usuario[0]'>$usuario[1]</option>";
+                                }
+                            }
+                            echo "</select>";
+                        echo "</td>";
                     echo "</tr>";
                 echo "</table>";
                 echo "<input type='submit' value='Modificar' name='modificar'>";
@@ -32,7 +43,6 @@
                     echo "Insertar contacto";
                 }
             ?>
-
         </h1>
 
         <div class="form-floating">
@@ -43,10 +53,19 @@
             <label for="floatingInput">Apellidos</label>
             <input type="text" class="form-control" name="apell">
         </div>
-        <div class="form-floating">
+        <div>
             <input type="date" class="form-control" name="fecha">
         </div>
-
+        <?php
+            if(isset($usuarios)){
+                echo "<label>Selecciona un dueño</label>";
+                echo "<select name='idUsuario'>";
+                foreach($usuarios as $usuario){
+                    echo "<option value='$usuario[0]'>$usuario[1]</option>";
+                }
+                echo "</select>";
+            };
+        ?>
         <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
     </form>
 
