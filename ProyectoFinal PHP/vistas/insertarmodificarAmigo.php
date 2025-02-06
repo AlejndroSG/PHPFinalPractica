@@ -17,17 +17,19 @@
                             echo "<label>Nueva Fecha</label><br>";
                             echo "<input type='date' name='fechaModif' value='$amigo[2]'>";
                         echo "</td>";
-                        echo "<td>";
-                            echo "<label>Nuevo Dueño</label><br>";
-                            echo "<select name='idUsuario'>";
-                            echo "<option selected value='$amigo[4]'>$amigo[3]</option>";
-                            foreach($usuarios as $usuario){
-                                if(strcmp($usuario[1], $amigo[0]) == 1){
-                                    echo "<option value='$usuario[0]'>$usuario[1]</option>";
+                        if($admin){
+                            echo "<td>";
+                                echo "<label>Nuevo Dueño</label><br>";
+                                echo "<select name='idUsuario'>";
+                                echo "<option selected value='$amigo[4]'>$amigo[3]</option>";
+                                foreach($usuarios as $usuario){
+                                    if(strcmp($usuario[1], $amigo[0]) == 1){
+                                        echo "<option value='$usuario[0]'>$usuario[1]</option>";
+                                    }
                                 }
-                            }
-                            echo "</select>";
-                        echo "</td>";
+                                echo "</select>";
+                            echo "</td>";
+                        }
                     echo "</tr>";
                 echo "</table>";
                 echo "<input type='submit' value='Modificar' name='modificar'>";
