@@ -54,6 +54,16 @@
             require_once("../header&footer/footer.html");
     }
 
+    function listarUsuarios($msg = ""){
+        require_once("../modelo/usuarios.class.php");
+        $usu = new usuarios();
+        $listaUsuarios = $usu->listarUsuarios();
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/headerAdmin.html");
+        require_once("../vistas/usuarios.php");
+        require_once("../header&footer/footer.html");
+    }
+
     function volverAmigos(){
         listarAmigos();
     }
@@ -63,7 +73,27 @@
     function volverPrestamos(){
         listarPrestamos();       
     }
+    function volverUsuarios(){
+        listarUsuarios();
+    }
 
+    function formInsertarUsuario(){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/headerAdmin.html");
+        require_once("../vistas/insertarmodificarUsuario.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function insertarUsuario(){
+        require_once("../modelo/usuarios.class.php");
+        $usu = new usuarios();
+        if($usu->insertarUsuario($_POST["nom"], $_POST["pswd"])){
+            $msg = "<p style='color:green'>Usuario insertado correctamente</p>";
+        }else{
+            $msg = "<p style='color:red'>Error al insertar usuario</p>";
+        }
+        listarUsuarios($msg);
+    }
 
     function formInsertarAmigo(){
         if(session_status() == PHP_SESSION_NONE) session_start();

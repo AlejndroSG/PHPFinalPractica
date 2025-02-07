@@ -36,43 +36,22 @@
             echo "</form>";
         }else{
     ?>
-    <form action="../controladores/index.php?action=insertarAmigo" method="post">
-        <h1 class="h3 mb-3 fw-normal">
-            <?php
-                if(!$admin){
-                    echo "Insertar amigo";
-                }else{
-                    echo "Insertar contacto";
-                }
-            ?>
-        </h1>
+    <form action="../controladores/index.php?action=insertarUsuario" method="post">
+        <h1 class="h3 mb-3 fw-normal">Insertar Usuario</h1>
 
         <div class="form-floating">
             <label for="floatingInput">Nombre</label>
             <input type="text" class="form-control" name="nom">
         </div>
         <div class="form-floating">
-            <label for="floatingInput">Apellidos</label>
-            <input type="text" class="form-control" name="apell">
+            <label for="floatingInput">Contraseña</label>
+            <input type="password" class="form-control" name="pswd">
         </div>
-        <div>
-            <input type="date" class="form-control" name="fecha">
-        </div>
-        <?php
-            if(isset($usuarios)){
-                echo "<label>Selecciona un dueño</label>";
-                echo "<select name='idUsuario'>";
-                foreach($usuarios as $usuario){
-                    echo "<option value='$usuario[0]'>$usuario[1]</option>";
-                }
-                echo "</select>";
-            };
-        ?>
         <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
     </form>
 
     <?php
         }
         ?>
-    <a href="index.php?action=volverAmigos">Atrás</a>
+    <a href="index.php?action=volverUsuarios">Atrás</a>
 </main>

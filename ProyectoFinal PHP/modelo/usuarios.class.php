@@ -25,16 +25,29 @@
         }
 
         public function listarUsuarios(){
-            $consulta = "SELECT id, nombre FROM usuarios Where tipo = 1;";
+            $consulta = "SELECT id, nombre, pswd FROM usuarios Where tipo = 1";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_result($idUsu, $nomUsu);
+            $sentencia->bind_result($idUsu, $nomUsu, $pswd);
             $info = array();
             $sentencia->execute();
             while($sentencia->fetch()){
-                array_push($info, [$idUsu, $nomUsu]);
+                array_push($info, [$idUsu, $nomUsu, $pswd]);
             };
             $sentencia->close();
             return $info;
+        }
+
+        public function insertarUsuario($nomUsu, $pswd){
+            $consulta = "INSERT INTO usuarios (nombre, pswd, tipo) VALUES (?,?,1)";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("ss", $nomUsu, $pswd);
+            $sentencia->execute();
+            $bool = false;
+            if($sentencia->affected_rows == 1){
+                $bool = true;
+            };
+            $sentencia->close();
+            return $bool;
         }
     }
 ?>
