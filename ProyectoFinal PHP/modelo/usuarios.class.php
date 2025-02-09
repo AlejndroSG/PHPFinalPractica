@@ -49,5 +49,32 @@
             $sentencia->close();
             return $bool;
         }
+
+        public function seleccionarUsuario($nomUsu){
+            $consulta = "SELECT id, nombre, pswd FROM usuarios WHERE nombre = ? AND tipo = 1";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("s", $nomUsu);
+            $sentencia->bind_result($idUsu, $nomUsu, $pswd);
+            $info = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($info, [$idUsu, $nomUsu, $pswd]);
+            };
+            $sentencia->close();
+            return $info;
+        }
+
+        public function modificarUsuario($idUsu, $nomUsu, $pswd){
+            $consulta = "UPDATE usuarios SET nombre = ?, pswd = ? WHERE id = ? AND tipo = 1";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("ssi", $nomUsu, $pswd, $idUsu);
+            $sentencia->execute();
+            $bool = false;
+            if($sentencia->affected_rows == 1){
+                $bool = true;
+            };
+            $sentencia->close();
+            return $bool;
+        }
     }
 ?>

@@ -163,6 +163,27 @@
         }
     }
 
+    function vistaModificarUsuario(){
+        require_once("../modelo/usuarios.class.php");
+        $usu = new usuarios();
+        $usuario = $usu->seleccionarUsuario($_POST["nomUsu"]); 
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/headerAdmin.html");
+        require_once("../vistas/insertarmodificarUsuario.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function modificarUsuario(){
+        require_once("../modelo/usuarios.class.php");
+        $usu = new usuarios();
+        if($usu->modificarUsuario($_POST["idUsu"], $_POST["nombreModif"], $_POST["pswdModif"])){
+            $msg = "<p style='color:green'>Usuario modificado correctamente</p>";
+        }else{
+            $msg = "<p style='color:red'>Error al modificar usuario</p>";
+        }
+        listarUsuarios($msg);
+    }
+
     function vistaModificarAmigo(){
         if(session_status() == PHP_SESSION_NONE) session_start();
         require_once("../modelo/amigos.class.php");
@@ -261,6 +282,20 @@
         require_once("../header&footer/header.html");
         require_once("../vistas/buscarPrestamo.php");
         require_once("../header&footer/footer.html");
+    }
+
+    function formBuscarUsuario($usuarioSeleccionado = "", $contrasena = "123456789"){
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/headerAdmin.html");
+        require_once("../vistas/buscarUsuario.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function mostrarUsuarios(){
+        require_once("../modelo/usuarios.class.php");
+        $usu = new usuarios();
+        $usuarios = $usu->seleccionarUsuario($_POST["nom"]);
+        formBuscarUsuario($usuarios);
     }
 
     function mostrarAmigos(){

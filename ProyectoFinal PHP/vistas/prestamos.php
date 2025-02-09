@@ -15,4 +15,5 @@
     ?>
     <input type="submit" value="Modificar" name="modificar">
     </form>
+    <a href="index.php?action=volverPrestamos">Atrás</a>
 </main>

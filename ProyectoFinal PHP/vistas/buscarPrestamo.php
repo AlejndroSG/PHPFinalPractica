@@ -26,7 +26,7 @@
         ?>
     <input type="submit" value="Modificar" name="modificar"> 
     </form>
-<?php 
-}
+    <?php 
+    }
 ?>
 <a href="index.php?action=volverPrestamos">Atrás</a>
