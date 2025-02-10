@@ -10,6 +10,7 @@
             $this->conn = $this->db->getConn();
         }
 
+        // Listamos todos los amigos de ese usuario en concreto
         public function listarAmigos($id){
             $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, id FROM amigos WHERE amigos.id_Usuario = ?";
             $sentencia = $this->conn->prepare($consulta);
@@ -24,6 +25,7 @@
             return $infoAmigos;
         }
 
+        // Listamos todos los contactos del sistema para el administrador
         public function listarContactos(){
             $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
             $sentencia = $this->conn->prepare($consulta);
@@ -37,6 +39,7 @@
             return $infoAmigos;
         }
 
+        // Seleccionamos un amigo en concreto para poder modificarlo
         public function seleccionarAmigo($idAmigo){
             $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac FROM amigos WHERE amigos.id = ?";
             $sentencia = $this->conn->prepare($consulta);
@@ -48,6 +51,7 @@
             return [$nom, $apell, $fnac];
         }
 
+        // Lo mismo pero seleccionamos el contacto para el administrador, ya que le podemos seleccionar el usuario
         public function seleccionarContacto($idAmigo){
             $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id_Usuario FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id AND amigos.id = ?";
             $sentencia = $this->conn->prepare($consulta);
@@ -56,9 +60,11 @@
             $sentencia->execute();
             $sentencia->fetch();
             $sentencia->close();
+
             return [$nom, $apell, $fnac, $duenio, $idDuenio];
         }
 
+        // Insertamos un amigo en la base de datos
         public function insertAmigo($id_Usuario, $nombre, $apellido, $fnac){
             $consulta = "INSERT INTO amigos (id_Usuario, nombre, apellidos, fNac) values (?,?,?,?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -76,6 +82,7 @@
             return $bool;
         }
 
+        // Modificamos un amigo en concreto
         public function modifAmigo($idUsuario, $nombre, $apellidos, $fNac, $id){
             $consulta = "UPDATE amigos SET id_Usuario = ?, nombre = ?, apellidos =  ?, fNac = ?  WHERE id = ?";
         
@@ -92,6 +99,7 @@
             return $bool;
         }
 
+        // Seleccionamos los amigos que tengan ese nombre o apellido
         public function seleccionAmigo($nomApell, $idUsu){
             $consulta = "SELECT nombre, apellidos, fNac, id FROM amigos WHERE id_Usuario = ? and (nombre = ? or apellidos = ?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -106,6 +114,7 @@
             return $infoAmigos;
         }
 
+        // Seleccionamos los contactos que tengan ese nombre o apellido
         public function seleccionContacto($nomApell){
             $consulta = "SELECT amigos.id, amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id and (amigos.nombre = ? or amigos.apellidos = ?)";
             $sentencia = $this->conn->prepare($consulta);

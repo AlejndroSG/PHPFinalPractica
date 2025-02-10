@@ -1,6 +1,7 @@
 <main>
     <?php
         if(isset($_POST["modificar"])){
+            echo "<h1>Modificando juego</h1>";
             echo "<form action='../controladores/index.php?action=modificarJuego' method='post' enctype='multipart/form-data'>";
                 echo "<table border='1'>";
                     echo "<input type='hidden' name='idJuego' value='$idJuego'>";
@@ -8,7 +9,7 @@
                         echo "<td>";
                             echo "<label>Nueva Imagen</label><br>";
                             echo "<input type='file' name='imgnew' value='$juego[1]'>";
-                            echo "<img src='$juego[1]' class='img-fluid '>";
+                            echo "<img src='$juego[1]'>";
                         echo "</td>";
                         echo "<td>";
                             echo "<label>Nuevo Título</label><br>";
@@ -29,24 +30,28 @@
         }else{
     ?>
     <form action="../controladores/index.php?action=insertarJuego" method="post" enctype="multipart/form-data">
-        <h1 class="h3 mb-3 fw-normal">NUEVO JUEGO</h1>
-        <div class="form-floating">
+        <h1>NUEVO JUEGO</h1>
+        <div>
             <label for="floatingInput">Título</label>
-            <input type="text" class="form-control" name="tit">
+            <br>
+            <input type="text" name="tit">
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Plataforma</label>
-            <input type="text" class="form-control" name="plat">
+            <br>
+            <input type="text" name="plat">
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Año de edición</label>
-            <input type="text" class="form-control" name="anio">
+            <br>
+            <input type="text" name="anio">
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Foto del juego</label>
-            <input type="file" class="form-control" name="foto">
+            <br>
+            <input type="file" name="foto">
         </div>
-        <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
+        <button value="Enviar" type="submit">Enviar</button>
     </form>
 
     <?php

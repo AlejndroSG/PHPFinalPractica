@@ -8,7 +8,7 @@
                         echo "<td>";
                             echo "<label>Nueva Imagen</label><br>";
                             echo "<input type='file' name='imgnew' value='$juego[1]'>";
-                            echo "<img src='$juego[1]' class='img-fluid '>";
+                            echo "<img src='$juego[1]'>";
                         echo "</td>";
                         echo "<td>";
                             echo "<label>Nuevo Título</label><br>";
@@ -29,9 +29,10 @@
         }else{
     ?>
     <form action="../controladores/index.php?action=insertarPrestamo" method="post" enctype="multipart/form-data">
-        <h1 class="h3 mb-3 fw-normal">NUEVO PRÉSTAMO</h1>
-        <div class="form-floating">
+        <h1>NUEVO PRÉSTAMO</h1>
+        <div>
             <label for="floatingInput">Amigo</label>
+            <br>
             <select name="amigo">
                 <?php
                     foreach($amigos as $amigo){
@@ -40,8 +41,9 @@
                 ?>
             </select>
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Juego</label>
+            <br>
             <select name="juego">
                 <?php
                     foreach($juegos as $juego){
@@ -50,14 +52,15 @@
                 ?>
             </select>
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Fecha de inicio</label>
-            <input type="date" class="form-control" name="fecha">
+            <br>
+            <input type="date" name="fecha">
         </div>
-        <div class="form-floating">
-            <input type="hidden" class="form-control" name="devuelto" default="NO">
+        <div>
+            <input type="hidden" name="devuelto" default="NO">
         </div>
-        <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
+        <button value="Enviar" type="submit">Enviar</button>
     </form>
 
     <?php

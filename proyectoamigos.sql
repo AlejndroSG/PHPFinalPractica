@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2025 a las 13:03:44
+-- Tiempo de generación: 10-02-2025 a las 13:10:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -40,21 +40,23 @@ CREATE TABLE `amigos` (
 --
 
 INSERT INTO `amigos` (`id_Usuario`, `nombre`, `apellidos`, `fNac`, `id`) VALUES
-(1, 'María Pedra', 'Gómez', '0000-00-00', 1),
-(1, 'Luis Pérez', 'Martínez', '0000-00-00', 2),
-(1, 'Carmen Sánchez', 'Rodríguez', '1992-03-08', 3),
+(12, 'María Pedra', 'Luisa', '2025-01-28', 1),
+(1, 'Luis Pérez', 'Martínez', '2028-10-26', 2),
+(1, 'Carmen Sánchez', 'Rodríguez', '2024-12-31', 3),
 (1, 'Diego Torres', 'López', '1991-07-12', 4),
 (5, 'Paula Vega', 'Morales', '1993-02-25', 5),
 (6, 'Javier Castillo', 'Pérez', '1989-04-16', 6),
 (7, 'Natalia Romero', 'Fernández', '1994-06-30', 7),
-(8, 'Andrés Muñoz', 'Ruiz', '1990-09-15', 8),
-(9, 'Silvia Martín', 'Ortiz', '1995-12-10', 9),
+(8, 'Andrés Muñoz', 'Ruiz', '1990-09-28', 8),
+(9, 'Silvia Martín', 'Ortiz', '1995-12-30', 9),
 (10, 'Francisco Navarro', 'Cruz', '1987-03-22', 10),
-(1, 'Alejandro', 'Sanchez', '0000-00-00', 12),
-(1, 'Alejandro', 'Luis', '0000-00-00', 13),
-(1, 'Juan Carlos', 'Carlos Juan', '2000-10-10', 14),
-(1, '12', '12', '0000-00-00', 15),
-(1, 'Pedro', 'Martin', '0000-00-00', 16);
+(1, 'Juan Carlos', 'Martin', '2025-01-08', 42),
+(1, 'Juan Carlos', 'Martin', '2025-01-08', 43),
+(1, 'Juan', 'Perez', '2025-01-01', 44),
+(6, 'Angie', 'Maritoni', '2024-09-09', 68),
+(9, 'Angie', 'Perez', '2024-09-09', 69),
+(9, 'Angie', 'Gonzalez', '2024-09-09', 70),
+(12, 'Angie', 'Manuel', '2025-01-17', 71);
 
 -- --------------------------------------------------------
 
@@ -76,16 +78,13 @@ CREATE TABLE `juegos` (
 --
 
 INSERT INTO `juegos` (`id`, `url`, `titulo`, `plataforma`, `lanzamiento`, `id_Usu`) VALUES
-(1, 'http://juego1.com', 'Aventura Épica', 'PC', 2021, 1),
-(2, 'http://juego2.com', 'Carreras Extremas', 'Xbox', 2020, 2),
-(3, 'http://juego3.com', 'Mundo Fantástico', 'PlayStation', 2022, 3),
-(4, 'http://juego4.com', 'Estrategia Total', 'PC', 2019, 4),
-(5, 'http://juego5.com', 'Héroes de la Galaxia', 'Switch', 2023, 5),
-(6, 'http://juego6.com', 'Deportes Pro', 'Xbox', 2021, 6),
-(7, 'http://juego7.com', 'La Gran Aventura', 'PlayStation', 2020, 7),
-(8, 'http://juego8.com', 'Exploradores', 'PC', 2022, 8),
-(9, 'http://juego9.com', 'Velocidad Máxima', 'Xbox', 2018, 9),
-(10, 'http://juego10.com', 'Batalla Épica', 'Switch', 2021, 10);
+(11, '../img/Juan/cervezas_alhambra-logo_brandlogos.net_7pdmi.png', 'Fortnite', 'PS4', 2018, 1),
+(12, '../img/Juan/826040fc-ef8d-42b4-8f30-0ddb4bca4332_source-aspect-ratio_default_0.jpg', 'Montoyita', 'illo', 2018, 1),
+(13, '../img/Juan/826040fc-ef8d-42b4-8f30-0ddb4bca4332_source-aspect-ratio_default_0.jpg', 'Montoya Desatao', 'Villa Polla', 2018, 1),
+(14, '../img/Juan/Anotación 2025-01-28 121146.png', 'Fortnite', 'PS4', 2018, 1),
+(15, '../img/Juan/Anotación 2025-01-28 121146.png', 'Fortnite', 'PS4', 2018, 1),
+(16, '../img/Juan/Anotación 2025-01-28 121146.png', 'Fortnite', 'PS4', 2018, 1),
+(17, '../img/Sofia/Escudo_Granada_club_de_fútbol.png', 'La guarrasofia', 'Disney', 2000, 6);
 
 -- --------------------------------------------------------
 
@@ -107,16 +106,16 @@ CREATE TABLE `prestamos` (
 --
 
 INSERT INTO `prestamos` (`id`, `id_Usu`, `id_Amigo`, `id_Juego`, `fecha_inicio`, `devuelto`) VALUES
-(1, 1, 2, 1, '2025-01-01', 0),
-(2, 2, 3, 2, '2025-01-05', 1),
-(3, 3, 1, 3, '2025-01-10', 0),
-(4, 4, 5, 4, '2025-01-15', 1),
-(5, 5, 6, 5, '2025-01-20', 0),
-(6, 6, 7, 6, '2025-01-25', 1),
-(7, 7, 8, 7, '2025-01-30', 0),
-(8, 8, 9, 8, '2025-02-05', 1),
-(9, 9, 10, 9, '2025-02-10', 0),
-(10, 10, 4, 10, '2025-02-15', 1);
+(11, 1, 1, 11, '2025-01-14', 1),
+(12, 1, 1, 11, '2025-01-14', 1),
+(15, 1, 4, 13, '2025-01-10', 1),
+(16, 1, 1, 13, '0000-00-00', 1),
+(17, 6, 6, 17, '2025-02-01', 1),
+(18, 6, 6, 17, '2025-02-01', 1),
+(19, 6, 6, 17, '2025-02-01', 1),
+(20, 6, 6, 17, '2026-01-01', 0),
+(21, 6, 6, 17, '2026-01-01', 0),
+(22, 6, 6, 17, '2026-01-01', 0);
 
 -- --------------------------------------------------------
 
@@ -136,16 +135,18 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `pswd`, `tipo`) VALUES
-(1, 'Juan', '1234', 0),
+(1, 'Juan', '1234', 1),
 (2, 'Ana', 'abcd', 1),
-(3, 'Carlos', 'pass123', 0),
-(4, 'Laura', 'lm2025', 0),
+(3, 'Carlos', 'pass123', 1),
+(4, 'Laura', 'lm2025', 1),
 (5, 'Pedro', 'pedro2025', 1),
-(6, 'Sofía', 'sofia123', 0),
+(6, 'Sofía', 'sofia123', 1),
 (7, 'Jorge', 'jorgepass', 1),
-(8, 'Marta', 'marta2025', 0),
-(9, 'Luis', 'luisgomez', 0),
-(10, 'Elena', 'elena2025', 1);
+(8, 'Marta', 'marta2025', 1),
+(9, 'Luis', 'luisgomez', 1),
+(10, 'Elena', 'elena2025', 1),
+(11, 'admin', 'admin', 0),
+(12, 'Angie', 'angie', 1);
 
 --
 -- Índices para tablas volcadas
@@ -192,25 +193,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

@@ -2,6 +2,7 @@
     <?php
     if(!isset($_POST["Enviar"])){
         ?>
+        <h1>Buscar Amigo</h1>
             <form action="../controladores/index.php?action=mostrarAmigos" method="post">
                 <label for="">Introduce el nombre o apellido del amigo que buscas</label>
                 <br>
@@ -13,7 +14,7 @@
         ?>
         <form action="index.php?action=vistaModificarAmigo" method="post">
         <?php
-            echo "<table border='1' class='table'>";
+            echo "<table border='1'>";
             echo "<tr><th>Nombre</th><th>Apellidos</th><th>Fecha de nacimiento</th>";
             if(isset($admin)) echo "<th>Dueño</th>";
             echo "<th>Modificar</th></tr>";

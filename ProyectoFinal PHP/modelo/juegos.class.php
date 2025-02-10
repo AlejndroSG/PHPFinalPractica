@@ -10,6 +10,7 @@
             $this->conn = $this->db->getConn();
         }
 
+        // Listamos todos los juegos de ese usuario en concreto
         public function listarJuegos($id){
             $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento FROM juegos WHERE id_Usu = ?";
             $sentencia = $this->conn->prepare($consulta);
@@ -24,6 +25,7 @@
             return $infoJuegos;
         }
 
+        // Listamos todos los juegos que no estén prestados
         public function listarJuegosNoPrestados($id){
             $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento
             FROM juegos
@@ -40,6 +42,7 @@
             return $infoJuegos;
         }
 
+        // Seleccionamos un juego en concreto para poder modificarlo
         public function seleccionarJuego($idJuego){
             $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento FROM juegos WHERE juegos.id = ?";
             $sentencia = $this->conn->prepare($consulta);
@@ -51,6 +54,7 @@
             return [$idJuegos, $url, $titulo, $plataf, $lanza];
         }
 
+        // Insertamos un juego en la base de datos
         public function insertarJuego($url, $tit, $plat, $anio, $id_Usu){
             $consulta = "INSERT INTO juegos (url, titulo, plataforma, lanzamiento, id_Usu) values (?,?,?,?,?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -66,6 +70,7 @@
             return $bol;
         }
 
+        // Seleccionamos un juego en concreto para poder modificarlo
         public function seleccionJuego($nomJuego, $idUsu){
             $consulta = "SELECT juegos.id, juegos.url, juegos.titulo, juegos.plataforma, juegos.lanzamiento FROM juegos WHERE juegos.id_Usu = ? and (juegos.titulo = ? or juegos.plataforma = ?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -80,6 +85,7 @@
             return $infoJuegos;
         }
 
+        // Modificamos un juego en concreto
         public function modificarJuego($id_usu, $url, $tit, $plat, $anio, $id_juego){
             $consulta = "UPDATE juegos SET url = ?, titulo = ?, plataforma = ?, lanzamiento = ? WHERE id_Usu = ? AND id = ?";
             $sentencia = $this->conn->prepare($consulta);

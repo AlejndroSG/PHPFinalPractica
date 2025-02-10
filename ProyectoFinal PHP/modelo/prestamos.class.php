@@ -10,6 +10,7 @@
             $this->conn = $this->db->getConn();
         }
 
+        // Listamos todos los prestamos de ese usuario en concreto
         public function listarPrestamos($id){
             $consulta = "SELECT prestamos.id, amigos.nombre, juegos.titulo, juegos.url, prestamos.fecha_inicio, prestamos.devuelto 
                         FROM usuarios, amigos, juegos, prestamos 
@@ -26,6 +27,7 @@
             return $infoPrestamo;
         }
 
+        // Insertamos un prestamo en la base de datos
         public function insertarPrestamo($idUsu, $idAmigo, $idJuego, $fecha, $devuelto){
             $consulta = "INSERT INTO prestamos (id_Usu, id_Amigo, id_Juego, fecha_inicio, devuelto) VALUES (?,?,?,?,?)";
             $sentencia = $this->conn->prepare($consulta);
@@ -41,6 +43,7 @@
             return $bool;
         }
 
+        // Seleccionamos un prestamo en concreto para poder modificarlo
         public function seleccionPrestamo($idUsu, $nomTit){
             $consulta = "SELECT prestamos.id, amigos.nombre, juegos.titulo, juegos.url, prestamos.fecha_inicio, prestamos.devuelto 
                         FROM usuarios, amigos, juegos, prestamos 
@@ -57,6 +60,7 @@
             return $infoPrestamo;
         }
 
+        // Modificamos un prestamo en concreto para poder devolverlo
         public function devolverPrestamo($idPrestamo){
             $consulta = "UPDATE prestamos SET devuelto = 1 WHERE prestamos.id = ?";
             $sentencia = $this->conn->prepare($consulta);

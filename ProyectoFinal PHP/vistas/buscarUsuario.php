@@ -2,6 +2,7 @@
     <?php
     if(!isset($_POST["Enviar"])){
         ?>
+        <h1>Buscar Usuario</h1>
             <form action="../controladores/index.php?action=mostrarUsuarios" method="post">
                 <label for="">Introduce el nombre del usuario que buscas</label>
                 <br>
@@ -13,7 +14,7 @@
         ?>
         <form action="index.php?action=vistaModificarUsuario" method="post">
         <?php
-            echo "<table border='1' class='table'>";
+            echo "<table border='1'>";
                 echo "<tr><th>ID</th><th>Nombre</th><th>Contraseña</th><th>Modificar</th>";
                 var_dump($usuarioSeleccionado);
                 foreach ($usuarioSeleccionado as $key => $value) {

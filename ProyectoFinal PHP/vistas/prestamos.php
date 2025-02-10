@@ -1,13 +1,13 @@
-<main class="text-center">
-    <a href="../controladores/index.php?action=formInsertarPrestamo" class="btn btn-danger btn-sm mb-3 text-center mx-auto">Insertar Préstamo</a>
-    <a href="../controladores/index.php?action=formBuscarPrestamo" class="btn btn-danger btn-sm mb-3 mx-3">Buscar Préstamo</a>
-    <form action="index.php?action=devolverPrestamo" method="post" class="container mt-3 mb-3 w-50 text-center mx-auto">
+<main>
+    <a href="../controladores/index.php?action=formInsertarPrestamo">Insertar Préstamo</a>
+    <a href="../controladores/index.php?action=formBuscarPrestamo">Buscar Préstamo</a>
+    <form action="index.php?action=devolverPrestamo" method="post">
     <?php
-        echo "<table border='1' class='table table-striped table-dark table-hover table-bordered table-sm text-center'>";
+        echo "<table border='1'>";
         echo "<tr><th>Amigo</th><th>Juego</th><th></th><th>Fecha</th><th>Devuelto</th><th>Devolver</th></tr>";
         foreach ($prestamos as $key => $value) {
             $disabled = ($value[5] == 1) ? " disabled" : "";
-            echo "<tr><td>$value[1]</td><td>$value[2]</td><td><img src='$value[3]' class='img-fluid'></td><td>$value[4]</td><td>$value[5]</td>
+            echo "<tr><td>$value[1]</td><td>$value[2]</td><td><img src='$value[3]'></td><td>$value[4]</td><td>$value[5]</td>
             <td><input type='radio' name='idPrestamo' value='$value[0]' required$disabled></td></tr>";
         }
         echo "</table>";

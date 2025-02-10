@@ -1,11 +1,11 @@
-<main class="text-center">
+<main>
         <?php
-            echo "<a href='../controladores/index.php?action=formInsertarUsuario' class='btn btn-danger'>Insertar Usuario</a>";
-            echo "<a href='../controladores/index.php?action=formBuscarUsuario' class='btn btn-danger'>Buscar Usuario</a>";
+            echo "<a href='../controladores/index.php?action=formInsertarUsuario'>Insertar Usuario</a>";
+            echo "<a href='../controladores/index.php?action=formBuscarUsuario'>Buscar Usuario</a>";
         ?>
         <form action="index.php?action=vistaModificarUsuario" method="post">
             <?php
-                echo "<table border='1'  class='table table-striped table-dark table-hover table-bordered table-sm text-center'>";
+                echo "<table border='1'>";
                     echo "<tr><th>ID</th><th>Nombre</th><th>Contraseña</th><th>Modificar</th></tr>";
                         foreach ($listaUsuarios as $key => $value) {
                             for($i = 0; $i < strlen($value[2]); $i++){

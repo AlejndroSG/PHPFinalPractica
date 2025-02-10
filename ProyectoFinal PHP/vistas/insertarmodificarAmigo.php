@@ -1,6 +1,7 @@
 <main>
     <?php
         if(isset($_POST["modificar"])){
+            echo "<h1>Modificando amigo</h1>";
             echo "<form action='../controladores/index.php?action=modificarAmigo' method='post'>";
                 echo "<table border='1'>";
                     echo "<input type='hidden' name='idAmigo' value='$idAmigo'>";
@@ -37,7 +38,7 @@
         }else{
     ?>
     <form action="../controladores/index.php?action=insertarAmigo" method="post">
-        <h1 class="h3 mb-3 fw-normal">
+        <h1>
             <?php
                 if(!$admin){
                     echo "Insertar amigo";
@@ -47,16 +48,20 @@
             ?>
         </h1>
 
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Nombre</label>
-            <input type="text" class="form-control" name="nom">
-        </div>
-        <div class="form-floating">
-            <label for="floatingInput">Apellidos</label>
-            <input type="text" class="form-control" name="apell">
+            <br>
+            <input type="text" name="nom">
         </div>
         <div>
-            <input type="date" class="form-control" name="fecha">
+            <label for="floatingInput">Apellidos</label>
+            <br>
+            <input type="text" name="apell">
+        </div>
+        <div>
+            <label for="floatingInput">Fecha de Nacimiento</label>
+            <br>
+            <input type="date" name="fecha">
         </div>
         <?php
             if(isset($usuarios)){
@@ -68,7 +73,8 @@
                 echo "</select>";
             };
         ?>
-        <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
+        <br>
+        <button value="Enviar" type="submit">Enviar</button>
     </form>
 
     <?php

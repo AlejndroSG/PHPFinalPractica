@@ -1,6 +1,7 @@
 <main>
     <?php
         if(isset($_POST["modificar"])){
+            echo "<h1>Modificar Usuario</h1>";
             echo "<form action='../controladores/index.php?action=modificarUsuario' method='post'>";
                 echo "<table border='1'>";
                     echo "<tr>";
@@ -20,17 +21,19 @@
         }else{
     ?>
     <form action="../controladores/index.php?action=insertarUsuario" method="post">
-        <h1 class="h3 mb-3 fw-normal">Insertar Usuario</h1>
+        <h1>Insertar Usuario</h1>
 
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Nombre</label>
-            <input type="text" class="form-control" name="nom">
+            <br>
+            <input type="text" name="nom">
         </div>
-        <div class="form-floating">
+        <div>
             <label for="floatingInput">Contraseña</label>
-            <input type="password" class="form-control" name="pswd">
+            <br>
+            <input type="password" name="pswd">
         </div>
-        <button class="btn btn-primary w-100 py-2" value="Enviar" type="submit">Enviar</button>
+        <button value="Enviar" type="submit">Enviar</button>
     </form>
 
     <?php
