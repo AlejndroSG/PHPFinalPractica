@@ -6,7 +6,7 @@
         echo "<table border='1'>";
         echo "<tr><th>Amigo</th><th>Juego</th><th></th><th>Fecha</th><th>Devuelto</th><th>Devolver</th></tr>";
         foreach ($prestamos as $key => $value) {
-            $disabled = ($value[5] == 1) ? " disabled" : "";
+            $disabled = ($value[5] == "Si") ? " disabled" : "";
             echo "<tr><td>$value[1]</td><td>$value[2]</td><td><img src='$value[3]'></td><td>$value[4]</td><td>$value[5]</td>
             <td><input type='radio' name='idPrestamo' value='$value[0]' required$disabled></td></tr>";
         }

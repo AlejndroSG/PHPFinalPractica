@@ -16,7 +16,6 @@
         <?php
             echo "<table border='1'>";
                 echo "<tr><th>ID</th><th>Nombre</th><th>Contraseña</th><th>Modificar</th>";
-                var_dump($usuarioSeleccionado);
                 foreach ($usuarioSeleccionado as $key => $value) {
                     echo "<tr><td>$value[0]</td><td>$value[1]</td><td>";
                         for($i = 0; $i < strlen($value[2]); $i++){

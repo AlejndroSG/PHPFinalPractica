@@ -5,6 +5,7 @@
             echo "<form action='../controladores/index.php?action=modificarJuego' method='post' enctype='multipart/form-data'>";
                 echo "<table border='1'>";
                     echo "<input type='hidden' name='idJuego' value='$idJuego'>";
+                    echo "<input type='hidden' name='imgold' value='$juego[1]'>";
                     echo "<tr>";
                         echo "<td>";
                             echo "<label>Nueva Imagen</label><br>";

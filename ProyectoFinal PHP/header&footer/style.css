@@ -1,4 +1,3 @@
-/* Estilos generales con temática World of Warcraft */
 @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
 
 body {
@@ -7,7 +6,7 @@ body {
     flex-flow: column;
     align-items: center;
     margin: auto;
-    background: url(./world-warcraft.jpg); /* Fondo oscuro tipo WoW */
+    background: url(./world-warcraft.jpg); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,7 +18,7 @@ body {
 main {
     text-align: center;
     width: 80%;
-    background: rgba(34, 34, 34, 0.9); /* Fondo oscuro semitransparente */
+    background: rgba(34, 34, 34, 0.9); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
@@ -27,7 +26,6 @@ main {
     margin-top: auto;
 }
 
-/* Botones e inputs tipo submit con estilo WoW */
 button, input[type="submit"] {
     background: linear-gradient(90deg, #7f4a19, #e2b007);
     border: 2px solid #e2b007;
@@ -48,7 +46,6 @@ button:hover, input[type="submit"]:hover {
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* Enlaces con efecto WoW */
 a {
     color: #e2b007;
     text-decoration: none;
@@ -63,7 +60,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Estilo para inputs de texto, fecha, contraseña, radio y select */
 input[type="text"], input[type="date"], input[type="password"], select {
     background: rgba(34, 34, 34, 0.8);
     border: 2px solid #e2b007;
@@ -114,7 +110,6 @@ input[type="file"]::file-selector-button:hover {
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* Formulario y tabla con estilo medieval */
 form {
     margin-top: 20px;
     width: 100%;
@@ -136,7 +131,7 @@ table th, table td {
 }
 
 table th {
-    background-color: #502d16; /* Marrón rústico */
+    background-color: #502d16; 
 }
 
 td input[type="radio"] {
@@ -144,7 +139,6 @@ td input[type="radio"] {
     margin: auto;
 }
 
-/* Estilos Responsive */
 @media (max-width: 768px) {
     main {
         width: 95%;
@@ -152,7 +146,6 @@ td input[type="radio"] {
     }
 }
 
-/* Header inspirado en WoW */
 header {
     width: 100%;
     z-index: 1000;
@@ -198,14 +191,12 @@ nav a:hover {
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* Imagen */
 img {
     width: 500px;
     border: 2px solid #e2b007;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
 }
 
-/* Footer con estilo legendario */
 footer {
     width: 100%;
     background: linear-gradient(90deg, #7f4a19, #502d16);

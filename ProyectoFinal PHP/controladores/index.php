@@ -35,8 +35,7 @@
             require_once("../header&footer/footer.html");
         }
     }
-    
-    // TODAS LAS FUNCIONES PARA LISTAR LA INFORMACIÓN DE LOS USUARIOS, AMIGOS, JUEGOS Y PRÉSTAMOS    
+        
     // Todas las funciones para volver atrás, es decir, para los botones de volver
     function volverAmigos(){
         listarAmigos();
@@ -177,7 +176,11 @@
             $admin = $_SESSION["tipo"];
             
             require_once("../header&footer/head.html");
-            require_once("../header&footer/header.html");
+            if($admin){
+                require_once("../header&footer/headerAdmin.html");
+            }else{
+                require_once("../header&footer/header.html");
+            }
             require_once("../vistas/amigos.php");
             require_once("../header&footer/footer.html");
         }
@@ -213,8 +216,6 @@
             if(!$_SESSION["tipo"]){
                 $comprobar = $amigo->modifAmigo($_SESSION["id"], $_POST["nombreModif"], $_POST["apellModif"], $_POST["fechaModif"], $_POST["idAmigo"]);
             }else{
-                // var_dump($_POST["idUsuario"]);
-                // die();
                 $comprobar = $amigo->modifAmigo($_POST["idUsuario"], $_POST["nombreModif"], $_POST["apellModif"], $_POST["fechaModif"], $_POST["idAmigo"]);
             }
             $msg = "";
@@ -291,7 +292,7 @@
         session_start();
         require_once("../modelo/juegos.class.php");
         $juego = new juegos();
-        $comprobar = $juego->modificarJuego($_SESSION["id"], compRuta($_FILES["imgnew"]["tmp_name"], $_FILES["imgnew"]["name"]), $_POST["titnew"], $_POST["platnew"], $_POST["lanznew"], $_POST["idJuego"]);
+        $comprobar = $juego->modificarJuego($_SESSION["id"], compRuta($_FILES["imgnew"]["tmp_name"], $_FILES["imgnew"]["name"], $_POST["imgold"]), $_POST["titnew"], $_POST["platnew"], $_POST["lanznew"], $_POST["idJuego"]);
 
         $msg = "";
 
@@ -328,6 +329,11 @@
         $prestamos = $prestamo->listarPrestamos($_SESSION["id"]);
         for ($i=0; $i < count($prestamos); $i++) { 
             reformatearFecha($prestamos[$i][4]);
+            if($prestamos[$i][5] == 1){
+                $prestamos[$i][5] = "Si";
+            }else{
+                $prestamos[$i][5] = "No";
+            }
         }
         require_once("../header&footer/head.html");
         require_once("../header&footer/header.html");
@@ -384,12 +390,15 @@
         session_start();
         require_once("../modelo/prestamos.class.php");
         $prestamo = new prestamos();
-        $msg;
-        if($prestamo->insertarPrestamo($_SESSION["id"], $_POST["amigo"], $_POST["juego"], formatearFechaPosteriori($_POST["fecha"]), $_POST["devuelto"])){
-            $msg = "<p style='color: green'>Prestamo insertado correctamente</p>";
+        if(formatearFechaPosteriori($_POST["fecha"])){
+            if($prestamo->insertarPrestamo($_SESSION["id"], $_POST["amigo"], $_POST["juego"], $_POST["fecha"], $_POST["devuelto"])){
+                $msg = "<p style='color: green'>Prestamo insertado correctamente</p>";
+            }else{
+                $msg = "<p style='color: red'>Prestamo no insertado</p>";
+            };
         }else{
-            $msg = "<p style='color: red'>Prestamo no insertado</p>";
-        };
+            $msg = "<p style='color:red'>La fecha introducida es anterior a la actual</p>";
+        }
         listarPrestamos($msg);
     }
 
@@ -409,18 +418,18 @@
         $fecha = date('d-m-Y', strtotime($fecha));
     }
     // Formateamos la fecha para poder insertarla en la BD, pero comprobando que sea posterior a la actual para los préstamos
-    function formatearFechaPosteriori($fecha){
+    function formatearFechaPosteriori(&$fecha){
         if(strtotime($fecha) > time()){
-            return date('Y-m-d', strtotime($fecha));
+            date('Y-m-d', strtotime($fecha));
+            return true;
         }else{
-            $msg = "<p style='color:red'>La fecha introducida es anterior a la actual</p>";
-            listarPrestamos($msg);
+            return false;
         }
     }
 
 
     // Función para comprobar la ruta de la imagen, y moverla a la carpeta correspondiente creándola en caso de que no exista
-    function compRuta($nombreTemporal, $nombre){
+    function compRuta($nombreTemporal, $nombre, $urlAntigua = ""){
         if(session_status() == PHP_SESSION_NONE) session_start();
         $rutaorigen = $nombreTemporal;
         $rutadestino = "../img/".$_SESSION["nom"]."/";
@@ -428,10 +437,18 @@
         if(!file_exists($rutadestino)){
             mkdir($rutadestino);
         }
-        $rutadestino.= $nombre;
-        move_uploaded_file($rutaorigen, $rutadestino);
-        
-        return $rutadestino;
+        $rutadestinoCompleta = $rutadestino . $nombre;
+        move_uploaded_file($rutaorigen, $rutadestinoCompleta);
+    
+        // Eliminar la imagen antigua si la URL no está vacía
+        if ($urlAntigua != "") {
+            $rutaAntigua = $urlAntigua; // Usar la ruta completa proporcionada
+            if (file_exists($rutaAntigua)) {
+                unlink($rutaAntigua);
+            }
+        }
+    
+        return $rutadestinoCompleta;
     }
 
     // Función para salir de la sesión
