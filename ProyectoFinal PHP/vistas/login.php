@@ -1,4 +1,5 @@
 <main>
+<audio id="audio" src="../audio/inicio.mp3" controls autoplay hidden></audio>
     <form action="../controladores/index.php?action=iniciarSesion" method="post">
         <h1>Inicia Sesión</h1>
 
@@ -19,6 +20,11 @@
         </div>
         <button value="Enviar" name="fini" type="submit">Iniciar Sesión</button>
     </form>
+    <script>
+  document.addEventListener('click', function() {
+    document.getElementById('audio').play();
+  });
+</script>
 
     <?php if(isset($err)) echo $err; ?>
 </main>
