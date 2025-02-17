@@ -162,28 +162,29 @@
         }else{
             $id = $_SESSION["id"];
         };
-        if(formatearFecha($fecha)){
+        if(formatearFecha($_POST["fecha"])){
             if($amigo->insertAmigo($id, $_POST["nom"],$_POST["apell"], $fecha)){
                 $msg = "<p style='color:green'>Amigo insertado correctamente</p>";
             }else{
                 $msg = "<p style='color:red'>Error al insertar amigo</p>";
-            }
-            if($_SESSION["tipo"]){
-                $listaAmigos = $amigo->listarContactos();
-            }else{
-                $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
-            }
-            $admin = $_SESSION["tipo"];
-            
-            require_once("../header&footer/head.html");
-            if($admin){
-                require_once("../header&footer/headerAdmin.html");
-            }else{
-                require_once("../header&footer/header.html");
-            }
-            require_once("../vistas/amigos.php");
-            require_once("../header&footer/footer.html");
+            }    
+        }else{
+            $msg = "<p style='color:red'>Error al insertar amigo</p>";
         }
+        if($_SESSION["tipo"]){
+            $listaAmigos = $amigo->listarContactos();
+        }else{
+            $listaAmigos = $amigo->listarAmigos($_SESSION["id"]);
+        }
+        require_once("../header&footer/head.html");
+        $admin = $_SESSION["tipo"];
+        if($admin){
+            require_once("../header&footer/headerAdmin.html");
+        }else{
+            require_once("../header&footer/header.html");
+        }
+        require_once("../vistas/amigos.php");
+        require_once("../header&footer/footer.html");
         
     }
     function vistaModificarAmigo(){
