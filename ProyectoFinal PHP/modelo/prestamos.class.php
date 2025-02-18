@@ -10,6 +10,20 @@
             $this->conn = $this->db->getConn();
         }
 
+        public function setearNota($id, $nota = 0.0){
+            $consulta = "UPDATE prestamos SET nota = ? WHERE prestamos.id = ?";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("di", $nota, $id);
+            $sentencia->execute();
+            if($sentencia->affected_rows == 1){
+                $bool = true;
+            }else{
+                $bool = false;
+            }
+            $sentencia->close();
+            return $bool;
+        }
+
         // Listamos todos los prestamos de ese usuario en concreto
         public function listarPrestamos($id){
             $consulta = "SELECT prestamos.id, amigos.nombre, juegos.titulo, juegos.url, prestamos.fecha_inicio, prestamos.devuelto 

@@ -10,16 +10,59 @@
             $this->conn = $this->db->getConn();
         }
 
-        // Listamos todos los amigos de ese usuario en concreto
-        public function listarAmigos($id){
-            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, id FROM amigos WHERE amigos.id_Usuario = ?";
+        public function validar($id){
+            $consulta = "UPDATE amigos SET validar = 1  WHERE id = ?";
             $sentencia = $this->conn->prepare($consulta);
             $sentencia->bind_param("i", $id);
-            $sentencia->bind_result($nom, $apell, $fnac, $id);
+            $sentencia->execute();
+
+            if($sentencia->affected_rows == 1){
+                $bool = true;
+            }else{
+                $bool = false;
+            }
+            $sentencia->close();
+            return $bool;
+        }
+
+        public function listarAmigosOrdenados($id){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id, avg(prestamos.nota) media FROM amigos left join prestamos on amigos.id = prestamos.id_Amigo WHERE amigos.id_Usuario = ? and amigos.validar = 1 GROUP BY amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id order by amigos.nombre asc";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("i", $id);
+            $sentencia->bind_result($nom, $apell, $fnac, $id_Amigo, $media);
             $infoAmigos = array();
             $sentencia->execute();
             while($sentencia->fetch()){
-                array_push($infoAmigos, [$nom, $apell, $fnac, $id]);
+                array_push($infoAmigos, [$nom, $apell, $fnac, $id_Amigo, $media]);
+            };
+            $sentencia->close();
+            return $infoAmigos;
+        }
+        
+        public function listarAmigosOrdenadosFecha($id){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id, avg(prestamos.nota) media FROM amigos left join prestamos on amigos.id = prestamos.id_Amigo WHERE amigos.id_Usuario = ? and amigos.validar = 1 GROUP BY amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id order by amigos.fNac asc";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("i", $id);
+            $sentencia->bind_result($nom, $apell, $fnac, $id, $media);
+            $infoAmigos = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($infoAmigos, [$nom, $apell, $fnac, $id, $media]);
+            };
+            $sentencia->close();
+            return $infoAmigos;
+        }
+
+        // Listamos todos los amigos de ese usuario en concreto
+        public function listarAmigos($id){
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id, avg(prestamos.nota) media FROM amigos left join prestamos on amigos.id = prestamos.id_Amigo WHERE amigos.id_Usuario = ? and amigos.validar = 1 GROUP BY amigos.nombre, amigos.apellidos, amigos.fNac, amigos.id";
+            $sentencia = $this->conn->prepare($consulta);
+            $sentencia->bind_param("i", $id);
+            $sentencia->bind_result($nom, $apell, $fnac, $id, $media);
+            $infoAmigos = array();
+            $sentencia->execute();
+            while($sentencia->fetch()){
+                array_push($infoAmigos, [$nom, $apell, $fnac, $id, $media]);
             };
             $sentencia->close();
             return $infoAmigos;
@@ -27,13 +70,13 @@
 
         // Listamos todos los contactos del sistema para el administrador
         public function listarContactos(){
-            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
+            $consulta = "SELECT amigos.nombre, amigos.apellidos, amigos.fNac, usuarios.nombre, amigos.id, amigos.validar FROM amigos, usuarios WHERE amigos.id_Usuario = usuarios.id;";
             $sentencia = $this->conn->prepare($consulta);
-            $sentencia->bind_result($nom, $apell, $fnac, $nombreDuenio, $id);
+            $sentencia->bind_result($nom, $apell, $fnac, $nombreDuenio, $id, $validar);
             $infoAmigos = array();
             $sentencia->execute();
             while($sentencia->fetch()){
-                array_push($infoAmigos, [$nom, $apell, $fnac, $nombreDuenio, $id]);
+                array_push($infoAmigos, [$nom, $apell, $fnac, $nombreDuenio, $id, $validar]);
             };
             $sentencia->close();
             return $infoAmigos;

@@ -191,23 +191,28 @@
         if(session_status() == PHP_SESSION_NONE) session_start();
         require_once("../modelo/amigos.class.php");
         $amigo = new amigos();
-        $idAmigo = $_POST["idAmigo"];
-        $admin = $_SESSION["tipo"];
-        require_once("../header&footer/head.html");
-        if($_SESSION["tipo"]){
-            require_once("../header&footer/headerAdmin.html");
-            require_once("../modelo/amigos.class.php");
-            $amigo = new amigos();
-            $amigo = $amigo->seleccionarContacto($idAmigo);
-            require_once("../modelo/usuarios.class.php");
-            $usu = new usuarios();
-            $usuarios = $usu->listarUsuarios();
+        if(isset($_POST["validar"])){
+            $amigo->validar($_POST["validar"]);
+            listarAmigos();
         }else{
-            $amigo = $amigo->seleccionarAmigo($_POST["idAmigo"]);
-            require_once("../header&footer/header.html");
+            $idAmigo = $_POST["idAmigo"];
+            $admin = $_SESSION["tipo"];
+            require_once("../header&footer/head.html");
+            if($_SESSION["tipo"]){
+                require_once("../header&footer/headerAdmin.html");
+                require_once("../modelo/amigos.class.php");
+                $amigo = new amigos();
+                $amigo = $amigo->seleccionarContacto($idAmigo);
+                require_once("../modelo/usuarios.class.php");
+                $usu = new usuarios();
+                $usuarios = $usu->listarUsuarios();
+            }else{
+                $amigo = $amigo->seleccionarAmigo($_POST["idAmigo"]);
+                require_once("../header&footer/header.html");
+            }
+            require_once("../vistas/insertarmodificarAmigo.php");
+            require_once("../header&footer/footer.html");
         }
-        require_once("../vistas/insertarmodificarAmigo.php");
-        require_once("../header&footer/footer.html");
     }
     function modificarAmigo(){
         session_start();
@@ -253,6 +258,30 @@
         }
         reformatearFecha($amigoSeleccionado[0][2]);
         formBuscarAmigo($amigoSeleccionado);
+    }
+
+    function ordenarNombre(){
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        require_once("../modelo/amigos.class.php");
+        $amigo = new amigos();
+        $listaAmigos = $amigo->listarAmigosOrdenados($_SESSION["id"]);
+        $admin = $_SESSION["tipo"];
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/amigos.php");
+        require_once("../header&footer/footer.html");
+    }
+
+    function ordenarFecha(){
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        require_once("../modelo/amigos.class.php");
+        $amigo = new amigos();
+        $listaAmigos = $amigo->listarAmigosOrdenadosFecha($_SESSION["id"]);
+        $admin = $_SESSION["tipo"];
+        require_once("../header&footer/head.html");
+        require_once("../header&footer/header.html");
+        require_once("../vistas/amigos.php");
+        require_once("../header&footer/footer.html");
     }
 
     // Funciones de los juegos, para mostrarle el formulario y para obtener la respuesta e insertar el juego
@@ -323,7 +352,7 @@
     }
 
     // Funciones de los prestamos, para mostrarlos y poder modificarlos, insertarlos etc
-    function listarPrestamos($msg = ""){
+    function listarPrestamos($msg = "", $nota = 0){
         if(session_status() == PHP_SESSION_NONE) session_start();
         require_once("../modelo/prestamos.class.php");
         $prestamo = new prestamos();
@@ -364,12 +393,14 @@
         require_once("../modelo/prestamos.class.php");
         $prestamo = new prestamos();
         $idPrestamo = $_POST["idPrestamo"];
+        $nota = doubleval($_POST["nota"]);
+        $prestamo->setearNota($idPrestamo, $nota);
         if($prestamo->devolverPrestamo($idPrestamo)){
             $msg = "<p style='color:green'>Se ha devuelto el juego correctamente</p>";
         }else{
             $msg = "<p style='color:red'>Error al devolver el juego</p>";
         }
-        listarPrestamos($msg);
+        listarPrestamos($msg, $_POST["nota"]);
     }
     function formInsertarPrestamo(){
         if(session_status() == PHP_SESSION_NONE) session_start();

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2025 a las 21:43:59
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 18-02-2025 a las 12:50:26
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,18 +32,20 @@ CREATE TABLE `amigos` (
   `nombre` varchar(200) NOT NULL,
   `apellidos` varchar(200) NOT NULL,
   `fNac` date NOT NULL,
-  `id` bigint(20) UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `validar` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `amigos`
 --
 
-INSERT INTO `amigos` (`id_Usuario`, `nombre`, `apellidos`, `fNac`, `id`) VALUES
-(1, 'Luis Pérez', 'Martínez', '2017-02-01', 2),
-(1, 'Carmen Sánchez', 'Rodríguez', '2024-12-31', 3),
-(1, 'Diego Torres', 'López', '1991-07-12', 4),
-(13, 'Alejandro', 'Sanchez', '2005-11-24', 72);
+INSERT INTO `amigos` (`id_Usuario`, `nombre`, `apellidos`, `fNac`, `id`, `validar`) VALUES
+(1, 'Luis Pérez', 'Martínez', '2017-02-01', 2, 1),
+(1, 'Carmen Sánchez', 'Rodríguez', '2024-12-31', 3, 1),
+(1, 'Diego Torres', 'López', '1991-07-12', 4, 0),
+(13, 'Alejandro', 'Sanchez', '2005-11-24', 72, 0),
+(1, 'juan', 'gfxd', '2025-02-05', 74, 1);
 
 -- --------------------------------------------------------
 
@@ -81,16 +83,18 @@ CREATE TABLE `prestamos` (
   `id_Amigo` bigint(11) UNSIGNED NOT NULL,
   `id_Juego` bigint(11) UNSIGNED NOT NULL,
   `fecha_inicio` date NOT NULL,
-  `devuelto` tinyint(1) NOT NULL
+  `devuelto` tinyint(1) NOT NULL,
+  `nota` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `prestamos`
 --
 
-INSERT INTO `prestamos` (`id`, `id_Usu`, `id_Amigo`, `id_Juego`, `fecha_inicio`, `devuelto`) VALUES
-(27, 1, 2, 18, '2025-02-20', 1),
-(28, 1, 3, 20, '2025-02-18', 0);
+INSERT INTO `prestamos` (`id`, `id_Usu`, `id_Amigo`, `id_Juego`, `fecha_inicio`, `devuelto`, `nota`) VALUES
+(27, 1, 2, 18, '2025-02-20', 1, 3.25),
+(28, 1, 3, 20, '2025-02-18', 0, 4.99),
+(29, 1, 2, 18, '2025-02-28', 0, 2.86);
 
 -- --------------------------------------------------------
 
@@ -159,7 +163,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
@@ -171,7 +175,7 @@ ALTER TABLE `juegos`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
